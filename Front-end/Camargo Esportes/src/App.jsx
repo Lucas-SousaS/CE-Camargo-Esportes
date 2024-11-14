@@ -17,11 +17,11 @@ function App() {
         <div className="flex flex-col w-1/2 left-10 items-start ">
           {data.map((item, index) => (
             <div className="flex items-center gap-6 border-b-2 p-8" key={index}>
-              <img className="h-60" src={img} alt="Luan Melancia" />
+              <img className="w-[400px] h-60 object-cover" src={item.imagem_url} alt="Luan Melancia" />
               <div className="flex flex-col gap-2">
-                <h1 className="font-semibold text-lg">{item.titulo}</h1>
-                <p className="font-normal text-md">{item.conteudo}</p>
-                <span className="font normal text-sm">Por: {item.autor}</span>
+                <h1 className="font-bold text-2xl text-[#06aa48]" >{item.titulo}</h1>
+                <p className="font-normal text-md ">{item.conteudo}</p>
+                <span className="font normal text-sm">{item.data_publicacao} | {item.categoria}</span>
               </div>
             </div>
           ))}
