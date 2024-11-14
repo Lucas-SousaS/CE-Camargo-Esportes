@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$db = "Camargo_Esportes";
+$db = "camargo_esportes";
 $user = "root";
 $password = "";
 
