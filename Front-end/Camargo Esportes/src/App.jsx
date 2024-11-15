@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
-import img from "./assets/Sem Título-1.png";
+import SignupScreen from "./components/SignupScreen/SignupScreen"
 function App() {
   const [data, setData] = useState([]);
   const url = "http://localhost/CE-Camargo-Esportes/Back-end/get_tasks.php";
@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className="flex w-full left-10 justify-center mt-10 mb-10">
+      <div className="flex flex-col w-full left-10 items-center mt-10 mb-10">
         <div className="flex flex-col w-1/2 left-10 items-start ">
           {data.map((item, index) => (
             <div className="flex items-center gap-6 border-b-2 p-8" key={index}>
@@ -26,6 +26,9 @@ function App() {
             </div>
           ))}
         </div>
+
+        <SignupScreen />
+        
       </div>
     </>
   );
