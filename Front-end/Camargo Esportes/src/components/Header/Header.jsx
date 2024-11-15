@@ -13,6 +13,7 @@ function Header() {
         <h3 className="text-lg font-semibold text-white">MENU</h3>
       </div>
 
+      <div></div>
       <div>
         <Link to={"/"}>
           <h1 className="font-bold text-2xl text-white">CE</h1>
@@ -29,8 +30,10 @@ function Header() {
           />
         </div>
 
-        <Link to={"/cadastro"}>
+        <Link to={"/cadastro"} className="flex gap-1 items-center">
           <FaUser className="text-white text-lg cursor-pointer hover:text-gray-200 transition-all " />
+          <span className="text-white">|</span>
+          <h1 className="text-white">Fazer cadastro</h1>
         </Link>
       </div>
     </header>
