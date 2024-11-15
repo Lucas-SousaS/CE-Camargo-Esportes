@@ -69,3 +69,17 @@ INSERT INTO noticias (titulo, conteudo, data_publicacao, autor, categoria, image
 ('Esquiadora H conquista ouro no mundial de inverno', 
  'A esquiadora H superou suas concorrentes e garantiu a medalha de ouro na categoria slalom gigante.', 
  '2024-11-13', 'Julia Nunes', 'Esportes de Inverno', 'https://fly.metroimg.com/upload/q_85,w_700/https://uploads.metroimg.com/wp-content/uploads/2024/02/25085830/popo-x-bambam.jpg');
+
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    data_nascimento DATE,
+    genero ENUM('masculino', 'feminino', 'outro'),
+    cidade VARCHAR(50),
+    estado VARCHAR(50),
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultima_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
