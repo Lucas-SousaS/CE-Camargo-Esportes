@@ -1,6 +1,6 @@
 function Footer() {
     return ( 
-        <footer className="bg-[#06aa48] flex flex-col items-start justify-center gap-8 w-screen py-4 bottom-0 left-0 px-24">
+        <footer className="bg-[#06aa48] flex flex-col items-start justify-center gap-8 w-screen py-4  bottom-0 left-0 px-24">
             <div className="flex gap-5 items-center">
                 <h1 className="font-bold text-3xl text-white">CE</h1>
 

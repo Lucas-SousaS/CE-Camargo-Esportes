@@ -3,7 +3,14 @@ import { FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SideMenu from "../SideMenu/SideMenu";
 
-function Header() {
+function Header({categoria}) {
+  const [link,setLink] = useState("/")
+
+  if(categoria == null || categoria == undefined){
+    categoria = "CE"
+  } else {
+    setLink("/")
+  }
 
   const [style, setStyle] = useState("left-[-100%]")
   function Esconder(){
@@ -26,8 +33,8 @@ function Header() {
       </button>
       <div></div>
       <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
-        <Link to={"/"}>
-          <h1 className="font-bold text-2xl text-white">CE</h1>
+        <Link to={link}>
+          <h1 className="font-bold text-2xl text-white">{categoria}</h1>
         </Link>
       </div>
 
