@@ -45,9 +45,6 @@ function SignupScreen() {
       setSenha("");
       const data = await response.json();
       console.log("Resposta do servidor:", data);
-
-      
-
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
     }
@@ -55,30 +52,29 @@ function SignupScreen() {
 
   return (
     <>
-
-<header className="bg-[#06aa48] flex items-center justify-evenly w-screen py-4">
-      <Link to={"/"} className="flex items-center gap-2  cursor-pointer">
-        <FaArrowLeft  className="text-white text-xl font-bold" />
-        <span className="text-lg font-semibold text-white">Voltar</span>
-      </Link>
-
-      <div className="flex items-center justify-center">
-        <Link to={"/"} className="flex items-center justify-center">
-          <h1 className="font-bold text-2xl text-white">CE</h1>
+      <header className="bg-[#06aa48] flex items-center justify-around w-screen py-4 relative">
+        <Link to={"/"} className="flex items-center gap-2  cursor-pointer">
+          <FaArrowLeft className="text-white text-xl font-bold" />
+          <span className="text-lg font-semibold text-white">Voltar</span>
         </Link>
-      </div>
 
-      
+        <div className="flex items-center justify-center absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%]">
+          <Link to={"/"} className="flex items-center justify-center">
+            <h1 className="font-bold text-2xl text-white">CE</h1>
+          </Link>
+        </div>
 
-       <div></div>
-    </header>
+        <div></div>
+      </header>
 
       <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-4 mb-8">
         <form
           onSubmit={handleSubmit}
           className={` gap-3 h-1/2 flex flex-col items-center  box-form`}
         >
-          <h1 className="font-bold text-3xl text-gray-600">Crie sua conta Camargo Esporte</h1>
+          <h1 className="font-bold text-3xl text-gray-600">
+            Crie sua conta Camargo Esporte
+          </h1>
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
               label={"Nome"}
@@ -109,16 +105,26 @@ function SignupScreen() {
               value={senha}
             />
           </div>
+
           <div className="flex flex-col gap-1 w-[100%]">
-            <Input
-              label={"Genêro"}
+            <label htmlFor="genero" className=" text-gray-600 font-semibold">
+            Qual o seu gênero?
+            </label>
+            <input
               type={"text"}
               id={"genero"}
-              placeholder={"Informe o seu Genêro"}
-              func={setGenero}
+              placeholder={"Qual o seu gênero?"}
               value={genero}
+              onChange={(e) => setGenero(e.target.value)}
+              list="generoOpt"
             />
+            <datalist id="generoOpt">
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+              <option value="outro">Outro</option>
+            </datalist>
           </div>
+
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
               label={"Data de Nascimento"}
@@ -149,7 +155,12 @@ function SignupScreen() {
               value={estado}
             />
           </div>
-          <button type="submit" className="bg-[#06aa48] p-1 py-2 w-[100%] rounded-md text-white hover:shadow-xl transition-all hover:brightness-110" >Cadastrar</button>
+          <button
+            type="submit"
+            className="bg-[#06aa48] p-1 py-2 w-[100%] rounded-md text-white hover:shadow-xl transition-all hover:brightness-110"
+          >
+            Cadastrar
+          </button>
         </form>
       </div>
     </>

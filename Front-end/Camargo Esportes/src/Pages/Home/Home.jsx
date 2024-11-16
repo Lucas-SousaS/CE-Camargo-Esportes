@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
+import SideMenu from "../../components/SideMenu/SideMenu";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -10,10 +11,12 @@ function Home() {
       .then((data) => setData(data));
   }, []);
 
+ 
   return (
     <>
     
       <Header />
+
       <div className="flex flex-col w-full left-10 items-center mt-10 mb-10">
         <div className="flex flex-col w-1/2 left-10 items-start ">
           {data.map((item, index) => (
