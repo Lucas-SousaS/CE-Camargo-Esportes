@@ -5,11 +5,8 @@ $db = "camargo_esportes";
 $user = "root";
 $password = "";
 
-// Permite qualquer origem, pode substituir "*" por "http://localhost:3000" para permitir apenas o React local
 header("Access-Control-Allow-Origin: *");
-// Permite os métodos GET, POST, PUT, DELETE e OPTIONS
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
-// Permite certos cabeçalhos como Content-Type e Authorization
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
 try {
