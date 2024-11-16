@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Style.css";
-import Header from "../../components/Header/Header";
 import Input from "../../components/Input/Input";
-import { FaArrowAltCircleLeft, FaArrowCircleLeft } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 function SignupScreen() {
