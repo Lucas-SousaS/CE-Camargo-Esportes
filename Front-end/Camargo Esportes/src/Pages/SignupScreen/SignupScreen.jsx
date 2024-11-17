@@ -3,6 +3,8 @@ import "./Style.css";
 import Input from "../../components/Input/Input";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import CardStatus from "../../components/CardStatus/CardStatus";
+
 function SignupScreen() {
   const [nome, setNome] = useState("");
   const [dataNascimento, setDataNas] = useState("");
@@ -11,6 +13,8 @@ function SignupScreen() {
   const [estado, setEstado] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [statusShow, setStatusShow] = useState("");
+  const [statusCadastro, setStatusCadastro] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +47,17 @@ function SignupScreen() {
       setSenha("");
       const data = await response.json();
       console.log("Resposta do servidor:", data);
+      if (data.status == "success"){
+        console.log("você se cadastrou com sucesso!!!!")
+        setStatusShow("")
+        setStatusShow("flex")
+        setStatusCadastro("sucess")
+      } else {
+        console.log("tá tudo errado")
+        setStatusCadastro("error")
+        setStatusShow("")
+        setStatusShow("flex")
+      }
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
     }
@@ -50,6 +65,7 @@ function SignupScreen() {
 
   return (
     <>
+    
       <header className="bg-[#06aa48] flex items-center justify-around w-screen py-4 relative">
         <Link to={"/"} className="flex items-center gap-2  cursor-pointer">
           <FaArrowLeft className="text-white text-xl font-bold" />
@@ -65,6 +81,8 @@ function SignupScreen() {
         <div></div>
       </header>
 
+      
+      <CardStatus show={statusShow} status={statusCadastro} />
       <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-4 mb-8">
         <form
           onSubmit={handleSubmit}
@@ -106,7 +124,7 @@ function SignupScreen() {
 
           <div className="flex flex-col gap-1 w-[100%]">
             <label htmlFor="genero" className=" text-gray-600 font-semibold">
-            Qual o seu gênero?
+              Qual o seu gênero?
             </label>
             <input
               type={"text"}

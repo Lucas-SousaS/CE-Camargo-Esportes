@@ -3,7 +3,7 @@ include('database.php');
 
 $dados = json_decode(file_get_contents("php://input"), true);
 
-if (empty($dados['nome']) || !is_string($dados['nome']) || strlen($dados['nome']) > 100) {
+if (empty($dados['nome']) || !is_string($dados['nome'])) {
     $nome = null;
 } else {
     $nome = htmlspecialchars(trim($dados['nome']));
