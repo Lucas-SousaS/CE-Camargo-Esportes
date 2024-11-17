@@ -74,7 +74,7 @@ function News() {
             <div className="flex flex-col gap-2 mt-5">
               {materiaF.map((item, index) => (
                 <div key={index} className="flex flex-col gap-5">
-                  <h1 className="font-normal text-xl text-[#333333]">{item}</h1>
+                  <h1 className="font-light text-xl text-[#333333]">{item}</h1>
                   <div className="flex w-[100%] items-center justify-center">
                     {index == 3 && (
                       <img

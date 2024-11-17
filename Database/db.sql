@@ -125,7 +125,7 @@ CREATE TABLE usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    data_nascimento DATE,
+    dataNascimento DATE,
     genero ENUM('masculino', 'feminino', 'outro'),
     cidade VARCHAR(50),
     estado VARCHAR(50),
