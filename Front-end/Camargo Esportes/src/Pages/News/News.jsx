@@ -28,7 +28,7 @@ function News() {
           const imagesNew = JSON.parse(data.imagens);
           setImages(imagesNew);
 
-          const string = data.materia_completa;
+          const string = data.materiaCompleta;
           const paragraphs = string.split(/(?<=\w[.!?])\s+/);
           setMateriaF(paragraphs);
 

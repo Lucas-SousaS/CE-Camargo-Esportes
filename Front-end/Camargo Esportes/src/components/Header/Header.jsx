@@ -29,13 +29,14 @@ function Header({categoria}) {
           <div className="w-5 h-[3px] rounded-md bg-white"></div>
           <div className="w-5 h-[3px] rounded-md bg-white"></div>
         </div>
-        <h3 className="text-lg font-semibold text-white">MENU</h3>
+        <h3 className="text-lg font-semibold text-white flex items-center">MENU</h3>
       </button>
       <div></div>
       <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
         <Link to={link}>
           <h1 className="font-bold text-2xl text-white">{categoria}</h1>
         </Link>
+
       </div>
 
       <div className="flex items-center gap-4">

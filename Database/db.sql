@@ -10,11 +10,11 @@ CREATE TABLE noticias (
     data_publicacao DATE NOT NULL,
     autor VARCHAR(100),
     categoria VARCHAR(50),
-    imagens JSON,
-    materia_completa LONGTEXT
+    imagens LONGTEXT,
+    materiaCompleta LONGTEXT
 );
 
-INSERT INTO noticias (titulo, conteudo, data_publicacao, autor, categoria, imagens, materia_completa)
+INSERT INTO noticias (titulo, conteudo, data_publicacao, autor, categoria, imagens, materiaCompleta)
 VALUES 
 ('Festa na Vila: CBF entregará taça da Série B do Brasileirão ao Santos no domingo', 
  'Diego Pituca, capitão do Peixe, será o responsável por levantar o troféu de campeão em frente aos torcedores santistas que esgotaram os ingressos para o duelo com o CRB',
