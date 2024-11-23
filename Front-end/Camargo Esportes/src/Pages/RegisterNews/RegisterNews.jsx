@@ -11,7 +11,7 @@ function RegisterNews() {
   const [categoria, setCategoria] = useState("");
   const [imagens, setImagens] = useState("");
   const [materiaCompleta, setMateriaCompleta] = useState("");
-  
+
   // Definição dos estados para o status de cadastro
   const [statusCadastro, setStatusCadastro] = useState(""); // Sucesso ou erro
   const [statusShow, setStatusShow] = useState(false); // Para exibir o CardStatus
@@ -37,7 +37,7 @@ function RegisterNews() {
           }),
         }
       );
-      
+
       // Limpar os campos após o envio
       setTitulo("");
       setConteudo("");
@@ -45,10 +45,10 @@ function RegisterNews() {
       setCategoria("");
       setImagens("");
       setMateriaCompleta("");
-      
+
       const data = await response.json();
       console.log("Resposta do servidor:", data);
-      
+
       if (data.status === "success") {
         console.log("Você se cadastrou com sucesso!");
         setStatusCadastro("success");
@@ -56,9 +56,8 @@ function RegisterNews() {
         console.log("Erro ao cadastrar a notícia");
         setStatusCadastro("error");
       }
-      
-      setStatusShow(true); // Exibir o status de cadastro
 
+      setStatusShow(true); 
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
     }
@@ -77,10 +76,9 @@ function RegisterNews() {
             <h1 className="font-bold text-2xl text-white">CE</h1>
           </Link>
         </div>
-          <div></div>
+        <div></div>
       </header>
 
-      {/* Exibe o status de sucesso ou erro após o envio */}
       <CardStatus show={statusShow} status={statusCadastro} />
 
       <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-4 mb-8">
@@ -91,7 +89,7 @@ function RegisterNews() {
           <h1 className="font-bold text-3xl text-gray-600">
             Publique sua notícia
           </h1>
-          
+
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
               label={"Título"}
@@ -102,7 +100,7 @@ function RegisterNews() {
               value={titulo}
             />
           </div>
-          
+
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
               label={"Conteúdo"}
@@ -148,14 +146,10 @@ function RegisterNews() {
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
-            <Input
-              label={"Matéria Completa"}
-              type={"text"}
-              id={"materiaCompleta"}
-              placeholder={"Informe o texto completo da matéria"}
-              func={setMateriaCompleta}
-              value={materiaCompleta}
-            />
+
+
+            <label for="materiaCompleta" className="text-gray-600 font-semibold" >Matéria Completa:</label>
+            <textarea className="border-2 border-gray-300 rounded focus:border-[#06aa48]"id="materiaCompleta" rows="4" cols="50" value={materiaCompleta} onChange={(e) => setMateriaCompleta(e.target.value)}></textarea>
           </div>
 
           <button

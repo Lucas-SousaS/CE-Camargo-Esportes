@@ -3,59 +3,70 @@ import { FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SideMenu from "../SideMenu/SideMenu";
 
-function Header({categoria}) {
-  const [link,setLink] = useState("/")
+function Header({ categoria, cadastro }) {
+  const [link, setLink] = useState("/");
 
-  if(categoria == null || categoria == undefined){
-    categoria = "CE"
+  if (categoria == null || categoria == undefined) {
+    categoria = "CE";
   } else {
-    setLink("/")
+    setLink("/");
   }
 
-  const [style, setStyle] = useState("left-[-100%]")
-  function Esconder(){
-    if(style == "left-[-100%]"){
-      setStyle("left-0")
+  const [style, setStyle] = useState("left-[-100%]");
+  function Esconder() {
+    if (style == "left-[-100%]") {
+      setStyle("left-0");
     } else {
-      setStyle("left-[-100%]")
+      setStyle("left-[-100%]");
     }
-}
-  return (<>
-  <SideMenu hidden={style} func={Esconder}/>
-    <header className="bg-[#06aa48] flex items-center justify-around w-screen py-4 relative">
-      <button onClick={() => Esconder()} className="flex items-center gap-2">
-        <div className="flex flex-col gap-1">
-          <div className="w-5 h-[3px] rounded-md bg-white"></div>
-          <div className="w-5 h-[3px] rounded-md bg-white"></div>
-          <div className="w-5 h-[3px] rounded-md bg-white"></div>
-        </div>
-        <h3 className="text-lg font-semibold text-white flex items-center">MENU</h3>
-      </button>
-      <div></div>
-      <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
-        <Link to={link}>
-          <h1 className="font-bold text-2xl text-white">{categoria}</h1>
-        </Link>
-
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="flex items-center bg-white gap-2 p-1 px-2 rounded">
-          <FaSearch className="text-[#777777]" />
-          <input
-            type="text"
-            className="bg-white outline-none placeholder:text-[#777777]"
-            placeholder="Buscar"
-          />
+  }
+  return (
+    <>
+      <SideMenu hidden={style} func={Esconder} />
+      <header className="bg-[#06aa48] flex items-center justify-around w-screen py-4 relative">
+        <button onClick={() => Esconder()} className="flex items-center gap-2">
+          <div className="flex flex-col gap-1">
+            <div className="w-5 h-[3px] rounded-md bg-white"></div>
+            <div className="w-5 h-[3px] rounded-md bg-white"></div>
+            <div className="w-5 h-[3px] rounded-md bg-white"></div>
+          </div>
+          <h3 className="text-lg font-semibold text-white flex items-center">
+            MENU
+          </h3>
+        </button>
+        <div></div>
+        <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
+          <Link to={link}>
+            <h1 className="font-bold text-2xl text-white">{categoria}</h1>
+          </Link>
         </div>
 
-        <Link to={"/cadastro"} className="flex gap-1 items-center">
-          <FaUser className="text-white text-lg cursor-pointer hover:text-gray-200 transition-all " />
-          <span className="text-white">|</span>
-          <h1 className="text-white">Fazer cadastro</h1>
-        </Link>
-      </div>
-    </header>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center bg-white gap-2 p-1 px-2 rounded">
+            <FaSearch className="text-[#777777]" />
+            <input
+              type="text"
+              className="bg-white outline-none placeholder:text-[#777777]"
+              placeholder="Buscar"
+            />
+          </div>
+          <div className="flex gap-1 items-center">
+            <Link to={"/login"} className="flex gap-1 items-center">
+              <FaUser className="text-white text-lg cursor-pointer hover:text-gray-200 transition-all " />
+            </Link>
+
+            {!cadastro && (
+              <>
+              <span className="text-white">|</span>
+            <Link to={"/cadastro"} className="flex gap-1 items-center">
+              <h1 className="text-white">Fazer cadastro</h1>
+            </Link>
+            </>
+            )
+            }
+          </div>
+        </div>
+      </header>
     </>
   );
 }

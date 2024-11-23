@@ -21,9 +21,29 @@ function Home() {
       });
   }, []);
 
+  const [user, setUser] = useState(null);
+  const [isLogged, setIsLogged] = useState(false)
+  useEffect(() => {
+    const checkSession = async () => {
+      const response = await fetch('http://localhost/CE-Camargo-Esportes/Back-end/check-session.php', {
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (data.loggedIn) {
+        setIsLogged(true)
+        setUser(data.user)
+      } else {
+        setIsLogged(false)
+      }
+    };
+
+    checkSession();
+  }, []);
+
   return (
     <>
-      <Header />
+      <Header cadastro={isLogged} />
+
 
       <div className="flex flex-col w-full left-10 items-center mt-10 mb-10 min-h-screen">
         <div className="flex flex-col w-1/2 left-10 items-start ">
@@ -34,11 +54,10 @@ function Home() {
               key={index}
             >
               <div className="">
-                {/* Aqui você acessa a imagem principal do objeto imagens */}
                 <img
                   className="w-[300px] object-cover rounded-sm"
                   src={item.imagens.imagem_principal}
-                  alt={item.titulo} // Use o título como alt para acessibilidade
+                  alt={item.titulo}
                 />
               </div>
 
