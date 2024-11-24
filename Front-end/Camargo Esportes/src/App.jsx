@@ -5,6 +5,7 @@ import News from "./Pages/News/News";
 import RegisterNews from "./Pages/RegisterNews/RegisterNews";
 import Login from "./components/Login/Login";
 import { useEffect, useState } from "react";
+import MyNews from "./Pages/MyNews/MyNews";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,6 +32,7 @@ function App() {
         <Route path="/news/:id" element={<News />} />
         <Route path="/publicacaoNoticia" element={<RegisterNews />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/mynews" element={<MyNews />} />
       </Routes>
     </Router>
 

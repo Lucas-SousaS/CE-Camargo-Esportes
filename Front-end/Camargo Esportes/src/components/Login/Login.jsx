@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import SecHeader from "../SecHeader/SecHeader";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -21,7 +23,7 @@ function Login() {
       if (data.success) {
         setMessage("Login realizado com sucesso!");
         console.log("Usuário logado:", data.user);
-        // window.location.href = "../";
+        window.location.href = "/login";
         setMessage(`Bem-vindo, ${data.user}!`);
       } else {
         setMessage(data.message);
@@ -69,7 +71,7 @@ function Login() {
       const data = await response.json();
 
       if (data.success) {
-        console.log(data.message); 
+        console.log(data.message);
         window.location.href = "/login";
       } else {
         console.error("Falha ao encerrar a sessão:", data.message);
@@ -85,8 +87,12 @@ function Login() {
 
   if (logged) {
     if (logged.loggedIn == false) {
-      return (
+      return (<>
+        <SecHeader />
+
         <div className="w-screen min-h-screen flex items-center justify-center">
+          
+
           <div className="flex flex-col justify-center">
             <h1 className="flex items-center justify-center">Login</h1>
 
@@ -109,15 +115,19 @@ function Login() {
             <button onClick={handleLogin}>Entrar </button>
           </div>
         </div>
+        </>
       );
     } else {
       return (
-        <div className="w-screen min-h-screen flex items-center justify-center">
-          <div>
-            {message && <p>{message}</p>}
-            <button onClick={handleLogout}>Logout</button>
+        <>
+          <SecHeader />
+          <div className="w-screen min-h-screen flex items-center justify-center">
+            <div>
+              {message && <p>{message}</p>}
+              <button onClick={handleLogout}>Logout</button>
+            </div>
           </div>
-        </div>
+        </>
       );
     }
   }

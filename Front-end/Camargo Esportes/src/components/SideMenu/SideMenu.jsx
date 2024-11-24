@@ -23,6 +23,11 @@ function SideMenu({ hidden, func }) {
             <h1 className="font-bold text-2xl">Publicar noticia</h1>
           </Link>
         </h2>
+        <h2>
+          <Link to={"/mynews"}>
+            <h1 className="font-bold text-2xl">Minhas Notícias</h1>
+          </Link>
+        </h2>
       </div>
 
       <div></div>
