@@ -51,23 +51,25 @@ function Login() {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost/CE-Camargo-Esportes/Back-end/logout.php", {
-        method: "POST",
-        credentials: "include", // Inclui cookies na requisição
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
+      const response = await fetch(
+        "http://localhost/CE-Camargo-Esportes/Back-end/logout.php",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
       if (!response.ok) {
         throw new Error("Erro ao encerrar a sessão.");
       }
-  
+
       const data = await response.json();
-  
+
       if (data.success) {
-        console.log(data.message); // Sessão encerrada
-        // Redireciona para a página de login ou limpa o estado do usuário
+        console.log(data.message); 
         window.location.href = "/login";
       } else {
         console.error("Falha ao encerrar a sessão:", data.message);
@@ -76,40 +78,45 @@ function Login() {
       console.error("Erro ao tentar realizar logout:", error.message);
     }
   };
-  
- 
-    const handleLogout = async () => {
-      await logout(); 
-    };
-  
-    
 
+  const handleLogout = async () => {
+    await logout();
+  };
 
   if (logged) {
     if (logged.loggedIn == false) {
       return (
-        <div>
-          <h1>Login</h1>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-          <button onClick={handleLogin}>Logar</button>
+        <div className="w-screen min-h-screen flex items-center justify-center">
+          <div className="flex flex-col justify-center">
+            <h1 className="flex items-center justify-center">Login</h1>
+
+            <div className="flex flex-col gap-2 items-center">
+              <input
+                className="border border-black "
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                className="border border-black "
+                type="password"
+                placeholder="Senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
+            </div>
+            <button onClick={handleLogin}>Entrar </button>
+          </div>
         </div>
       );
     } else {
       return (
-        <div>
-          {message && <p>{message}</p>}
-          <button onClick={handleLogout}>Logout</button>
+        <div className="w-screen min-h-screen flex items-center justify-center">
+          <div>
+            {message && <p>{message}</p>}
+            <button onClick={handleLogout}>Logout</button>
+          </div>
         </div>
       );
     }

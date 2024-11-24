@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/Input/Input";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
@@ -63,8 +63,27 @@ function RegisterNews() {
     }
   };
 
+  const [isLogged, setIsLogged] = useState(false)
+  useEffect(() => {
+    const checkSession = async () => {
+      const response = await fetch('http://localhost/CE-Camargo-Esportes/Back-end/check-session.php', {
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (data.loggedIn) {
+        setIsLogged(true)
+        setUser(data.user)
+      } else {
+        setIsLogged(false)
+      }
+    };
+
+    checkSession();
+  }, []);
+
   return (
-    <>
+    <>{isLogged ? (
+      <>
       <header className="bg-[#06aa48] flex items-center justify-around w-screen py-4 relative">
         <Link to={"/"} className="flex items-center gap-2 cursor-pointer">
           <FaArrowLeft className="text-white text-xl font-bold" />
@@ -160,6 +179,10 @@ function RegisterNews() {
           </button>
         </form>
       </div>
+      </>
+      ) : (
+        <h1>Faça Login antes</h1>
+      )}
     </>
   );
 }
