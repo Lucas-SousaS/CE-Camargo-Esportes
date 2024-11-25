@@ -26,6 +26,7 @@ function News() {
           setError(data.error);
         } else {
           const imagesNew = JSON.parse(data.imagens);
+          console.log(imagesNew)
           setImages(imagesNew);
 
           const string = data.materiaCompleta;

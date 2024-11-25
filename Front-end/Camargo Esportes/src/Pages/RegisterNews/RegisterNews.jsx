@@ -11,7 +11,14 @@ function RegisterNews() {
   const [autor, setAutor] = useState("");
   const [categoria, setCategoria] = useState("");
   const [imagens, setImagens] = useState("");
+  const [imagem1, setImagem1] = useState("");
+  const [imagem2, setImagem2] = useState("");
   const [materiaCompleta, setMateriaCompleta] = useState("");
+  const [user, setUser] = useState([])
+
+  useEffect(() => {
+    setImagens(`{"imagem_principal": "${imagem1}", "imagem_adicional_1": "${imagem2}"}`)
+  }, [imagem1, imagem2])
 
   // Definição dos estados para o status de cadastro
   const [statusCadastro, setStatusCadastro] = useState(""); // Sucesso ou erro
@@ -74,6 +81,8 @@ function RegisterNews() {
       if (data.loggedIn) {
         setIsLogged(true)
         setUser(data.user)
+        console.log(data.user)
+        setAutor(data.user.nome)
       } else {
         setIsLogged(false)
       }
@@ -95,7 +104,7 @@ function RegisterNews() {
           className={`gap-3 h-1/2 flex flex-col items-center box-form`}
         >
           <h1 className="font-bold text-3xl text-gray-600">
-            Publique sua notícia
+          Olá, {user.nome}! Publique sua notícia
           </h1>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -122,17 +131,6 @@ function RegisterNews() {
 
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
-              label={"Autor"}
-              type={"text"}
-              id={"autor"}
-              placeholder={"Informe o nome do autor"}
-              func={setAutor}
-              value={autor}
-            />
-          </div>
-
-          <div className="flex flex-col gap-1 w-[100%]">
-            <Input
               label={"Categoria"}
               type={"text"}
               id={"categoria"}
@@ -144,12 +142,23 @@ function RegisterNews() {
 
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
-              label={"Imagens"}
+              label={"Imagens 1"}
               type={"text"}
-              id={"imagens"}
-              placeholder={"Informe a URL da imagem"}
-              func={setImagens}
-              value={imagens}
+              id={"imagem1"}
+              placeholder={"Informe a URL da imagem 1"}
+              func={setImagem1}
+              value={imagem1}
+            />
+          </div>
+
+          <div className="flex flex-col gap-1 w-[100%]">
+            <Input
+              label={"Imagens 2"}
+              type={"text"}
+              id={"imagem2"}
+              placeholder={"Informe a URL da imagem 2"}
+              func={setImagem2}
+              value={imagem2}
             />
           </div>
 

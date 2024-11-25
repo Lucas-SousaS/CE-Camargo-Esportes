@@ -1,28 +1,24 @@
 <?php
 include('database.php');
 
-// Receber e decodificar os dados JSON
 $dados = json_decode(file_get_contents("php://input"), true);
 
-// Data atual
 $data_publicacao = date('Y-m-d');
 
-// Validar e sanitizar os dados
 $titulo = isset($dados['titulo']) && is_string($dados['titulo']) && !empty($dados['titulo']) ? htmlspecialchars(trim($dados['titulo'])) : null;
 $conteudo = isset($dados['conteudo']) && is_string($dados['conteudo']) ? htmlspecialchars(trim($dados['conteudo'])) : null;
 $autor = isset($dados['autor']) && is_string($dados['autor']) ? htmlspecialchars(trim($dados['autor'])) : null;
 $categoria = isset($dados['categoria']) && is_string($dados['categoria']) ? htmlspecialchars(trim($dados['categoria'])) : null;
-$imagens = isset($dados['imagens']) && is_string($dados['imagens']) ? htmlspecialchars(trim($dados['imagens'])) : null;
+$imagens = isset($dados['imagens']) && is_string($dados['imagens']) ? json_encode(json_decode($dados['imagens'], true)) : null;
 $materiaCompleta = isset($dados['materiaCompleta']) && is_string($dados['materiaCompleta']) ? htmlspecialchars(trim($dados['materiaCompleta'])) : null;
 
 try {
-    // Verificar se os dados obrigatórios estão presentes
+
     if (!$titulo || !$conteudo || !$autor || !$categoria || !$materiaCompleta) {
         echo json_encode(["status" => "error", "message" => "Campos obrigatórios faltando."]);
         exit;
     }
 
-    // Query de inserção com a data
     $query = "INSERT INTO noticias (titulo, conteudo, autor, categoria, imagens, materiaCompleta, data_publicacao)
               VALUES (:titulo, :conteudo, :autor, :categoria, :imagens, :materiaCompleta, :data_publicacao)";
 
