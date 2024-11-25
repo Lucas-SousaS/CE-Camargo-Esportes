@@ -9,17 +9,19 @@ CREATE TABLE noticias (
     conteudo TEXT NOT NULL,
     data_publicacao DATE NOT NULL,
     autor VARCHAR(100),
+    autor_id INT NOT NULL,
     categoria VARCHAR(50),
     imagens LONGTEXT,
     materiaCompleta LONGTEXT
 );
 
-INSERT INTO noticias (titulo, conteudo, data_publicacao, autor, categoria, imagens, materiaCompleta)
+INSERT INTO noticias (titulo, conteudo, data_publicacao, autor, autor_id, categoria, imagens, materiaCompleta)
 VALUES 
 ('Festa na Vila: CBF entregará taça da Série B do Brasileirão ao Santos no domingo', 
  'Diego Pituca, capitão do Peixe, será o responsável por levantar o troféu de campeão em frente aos torcedores santistas que esgotaram os ingressos para o duelo com o CRB',
  '2024-11-16', 
  'Yago Rudá', 
+ 0,
  'Futebol', 
  '{"imagem_principal": "https://s2-ge.glbimg.com/eg6ULAbiyFoKRU8JzUhpaqNnrXM=/0x0:932x621/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/z/U/QPgllQRwa5yt3V65yZKg/agif24080214105219.jpg", "imagem_adicional_1": "https://imgs.search.brave.com/Kv6wdCOruelfDuPQnqDbay445XghXp1cJBrTkrwywkY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuZ29hbC5jb20v/aW1hZ2VzL3YzL2Js/dDI2NDAzODIwOTUx/OTEwYTEvNTE3MDY2/NDA3MjhfNjdiZDhh/YTcyOV9vLmpwZz9h/dXRvPXdlYnAmZm9y/bWF0PXBqcGcmd2lk/dGg9Mzg0MCZxdWFs/aXR5PTYw"}',
  'A CBF (Confederação Brasileira de Futebol) já tem planejada a premiação ao Santos pela conquista do título da Série B. O troféu e as medalhas de campeão nacional serão entregues aos jogadores do Peixe após a partida contra o CRB, neste domingo, na Vila Viva Sorte.
@@ -32,6 +34,7 @@ Apontado como o favorito no torneio, o Peixe confirmou seu status e confirmou o 
  'Thairo Arruda afirma que situação de clube francês será normalizada em breve e elogia norte-americano',
  '2024-11-16', 
  'Redação do ge', 
+ 0,
  'Futebol', 
  '{"imagem_principal": "https://s2-ge.glbimg.com/s44nIl81g5y7a5nq94OJqyaVyHs=/55x0:1719x936/810x456/smart/filters:max_age(3600)/https://i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2023/5/H/wgaC3LQ12MRX0wyf8PwQ/52442241629-f190d901f1-k.jpg", "imagem_adicional_1": "https://imgs.search.brave.com/wMVlRhzjoYlGD-6PUxhUrGlXL9eM_Nd_WJee_K5q2LA/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vcHJlc3Nm/dXQuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIyLzAxLzUx/ODA0ODcxOTMwX2Zj/ODc0MzVkNTZfay1z/Y2FsZWQuanBnP2Zp/dD0xNjIwLDEwODAm/c3NsPTE"}',
  'Thairo Arruda, CEO do Botafogo, saiu em defesa de John Textor, dono da SAF Alvinegra. O norte-americano tem passado por problemas envolvendo o Lyon, outro clube da Eagle Football, que está proibido de contratar e com rebaixamento provisório na França pela A Direção Nacional de Controle e Gestão (DNCG) por não apresentar garantias financeiras. Em nota divulgada pelo Botafogo, o braço direito de Textor destacou que a Eagle possui um "modelo inovador" multi-clubes e que a França "ainda está em fase de entendimento do diferencial competitivo".
@@ -53,6 +56,7 @@ Confiamos na liderança visionária do nosso acionista majoritário John Textor 
  'Lenda do boxe confessa que perdeu metade do sangue em crise de úlcera que causou adiamento de luta contra Jake Paul e comemora: "Tive de lutar para ficar saudável e lutar, então eu venci"',
  '2024-11-16', 
  'Combate.com', 
+ 0,
  'Boxe', 
  '{"imagem_principal": "https://imgs.search.brave.com/MLD2-cALjbz4IFQrQ1D1eXtXL5c6AloJDeDi5R2Y9gQ/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5uYmNjaGljYWdv/LmNvbS8yMDI0LzEx/L0dldHR5SW1hZ2Vz/LTIxODQzNDc4MDYt/ZTE3MzE3NDM3MTYy/ODkuanBnP3F1YWxp/dHk9ODUmc3RyaXA9/YWxsJnJlc2l6ZT0z/MjAsMTgw", "imagem_adicional_1": "https://s2-ge.glbimg.com/GUEIfuO9wm1zobSSjI_MpxTaXrc=/0x0:1024x683/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/q/H/rYlpwLTDeHpIvgkeDiAg/gettyimages-2185054033.jpg"}',
  'Um dia após subir ao ringue aos 58 anos de idade e retornar de uma aposentadoria que durou 19 anos, Mike Tyson revelou que esteve muito próximo de nem sequer estar presente no evento da última sexta-feira. O lendário ex-campeão mundial dos pesos-pesados do boxe revelou que a crise de úlcera que teve em junho foi muito mais séria do que foi divulgado anteriormente, e admitiu que poderia ter morrido na ocasião. 
@@ -74,6 +78,7 @@ Confira abaixo o texto completo do post de Tyson:
  'Em reedição da final do US Open, norte-americano e italiano lutarão por título inédito neste domingo',
  '2024-11-16', 
  'Redação Ge', 
+ 0,
  'Tênis', 
  '{"imagem_principal": "https://s2-ge.glbimg.com/KdeNlWTVC7fu4Frh4iWpkEwLqjc=/0x202:3732x2301/540x304/smart/filters:max_age(3600)/https://i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/J/Y/CYc7BdRUylWLWmYmWMxg/gettyimages-2185147653.jpg", "imagem_adicional_1": "https://s2-ge.glbimg.com/6H34Du1oNcy3w4kgjk6RxXeAxzY=/0x0:3268x2058/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/P/H/eL5OZzR2qSHw96xXuGTA/gettyimages-2185120463.jpg"}',
  'O estadunidense Taylor Fritz e o italiano Jannik Sinner farão a grande final do ATP Finals 2024.
@@ -104,6 +109,7 @@ Horas mais tarde, foi a vez de Sinner entrar em ação contra Ruud, sétimo colo
  'Astro chega à marca depois de anotar 15 pontos, 16 rebotes e 12 assistências diante dos Spurs pela Copa da NBA',
  '2024-11-16', 
  'Redação do ge', 
+ 0,
  'Basquete', 
  '{"imagem_principal": "https://s2-ge.glbimg.com/msV0la7nc5ideCiyo6QvVws9zhE=/0x0:1024x683/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2024/H/k/7dNF6vR12opysIKpGgEQ/gettyimages-2184291415-1-.jpg", "imagem_adicional_1": "https://imgs.search.brave.com/Ez1LWKFtZiQeVaS0OdbMI9wlvqFkumdYWkLI2SvIgwI/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy83/LzdhL0xlQnJvbl9K/YW1lc18oNTE5NTk5/NzcxNDQpXyhjcm9w/cGVkMikuanBn"}',
  'Aos 39 anos, LeBron James segue quebrando marcas. Na rodada da madrugada deste sábado, o astro do Los Angeles Lakers chegou ao quarto triplo-duplo consecutivo, algo que ele jamais tinha feito na carreira. Foram 15 pontos, 16 rebotes e 12 assistências na vitória sobre os Spurs, do francês Wembanyama, por 120 a 115. A partida foi válida pela Copa da NBA, torneio intertemporada. 

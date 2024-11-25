@@ -9,6 +9,7 @@ function RegisterNews() {
   const [titulo, setTitulo] = useState("");
   const [conteudo, setConteudo] = useState("");
   const [autor, setAutor] = useState("");
+  const [autor_id, setAutor_id] = useState()
   const [categoria, setCategoria] = useState("");
   const [imagens, setImagens] = useState("");
   const [imagem1, setImagem1] = useState("");
@@ -17,12 +18,12 @@ function RegisterNews() {
   const [user, setUser] = useState([])
 
   useEffect(() => {
-    setImagens(`{"imagem_principal": "${imagem1}", "imagem_adicional_1": "${imagem2}"}`)
+    setImagens(`{"imagem_principal": "${imagem1}", "imagem_adicional_1": "${imagem2}"}`);
   }, [imagem1, imagem2])
 
-  // Definição dos estados para o status de cadastro
-  const [statusCadastro, setStatusCadastro] = useState(""); // Sucesso ou erro
-  const [statusShow, setStatusShow] = useState(false); // Para exibir o CardStatus
+
+  const [statusCadastro, setStatusCadastro] = useState("");
+  const [statusShow, setStatusShow] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ function RegisterNews() {
             titulo,
             conteudo,
             autor,
+            autor_id,
             categoria,
             imagens,
             materiaCompleta,
@@ -46,14 +48,15 @@ function RegisterNews() {
         }
       );
 
-      // Limpar os campos após o envio
       setTitulo("");
       setConteudo("");
       setAutor("");
       setCategoria("");
       setImagens("");
       setMateriaCompleta("");
-
+      setImagem1("")
+      setImagem2("")
+      
       const data = await response.json();
       console.log("Resposta do servidor:", data);
 
@@ -82,6 +85,7 @@ function RegisterNews() {
         setIsLogged(true)
         setUser(data.user)
         console.log(data.user)
+        setAutor_id(Number(data.user.id))
         setAutor(data.user.nome)
       } else {
         setIsLogged(false)

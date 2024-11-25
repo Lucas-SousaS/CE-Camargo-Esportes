@@ -14,13 +14,13 @@ function Home() {
         const formattedData = data.map(item => {
           if (typeof item.imagens === 'string') {
             item.imagens = JSON.parse(item.imagens);
-            console.log(item.imagens)
           }
           return item;
         });
         setData(formattedData);
       });
   }, []);
+
 
   const [user, setUser] = useState(null);
   const [isLogged, setIsLogged] = useState(false)
