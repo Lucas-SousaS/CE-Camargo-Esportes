@@ -19,4 +19,4 @@ Camargo Esportes é uma plataforma de notícias focada no futebol, trazendo atua
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/Lucas-SousaS/CE-Camargo-Esportes-.git
+   git clone https://github.com/Lucas-SousaS/CE-Camargo-Esportes.git
