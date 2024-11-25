@@ -23,7 +23,7 @@ function Login() {
       if (data.success) {
         setMessage("Login realizado com sucesso!");
         console.log("Usuário logado:", data.user);
-        window.location.href = "/login";
+        // window.location.href = "/login";
         setMessage(`Bem-vindo, ${data.user}!`);
       } else {
         setMessage(data.message);

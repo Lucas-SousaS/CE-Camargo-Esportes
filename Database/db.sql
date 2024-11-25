@@ -15,6 +15,9 @@ CREATE TABLE noticias (
     materiaCompleta LONGTEXT
 );
 
+ALTER TABLE noticias MODIFY COLUMN materiaCompleta LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+
 INSERT INTO noticias (titulo, conteudo, data_publicacao, autor, autor_id, categoria, imagens, materiaCompleta)
 VALUES 
 ('Festa na Vila: CBF entregará taça da Série B do Brasileirão ao Santos no domingo', 

@@ -56,6 +56,33 @@ function MyNews() {
     handleSubmit();
   }, [idUser]);
 
+    const handleDelete = async (idNews) => {
+      if (idNews) {
+        try {
+          console.log(idNews)
+          const response = await fetch(
+            "http://localhost/CE-Camargo-Esportes/Back-end/delete_news.php",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                idNews,
+              }),
+            }
+          );
+          
+            window.location.href = "/mynews";
+        } catch (error) {
+          console.error("Erro ao enviar dados:", error);
+        }
+      }
+    };
+
+
+
+
   return (
     <>
       <SecHeader />
@@ -72,7 +99,7 @@ function MyNews() {
 
                     <button
                       onClick={() => {
-                        console.log(`deletou a noticia ${item.id}`);
+                        handleDelete(item.id)
                       }}
                     >
                       Deletar
