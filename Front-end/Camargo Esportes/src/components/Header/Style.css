@@ -9,7 +9,7 @@
     background-color: white;
 }
 .box-search:focus-within .icon-search {
-    color: black; /* Altera a cor do ícone */
+    color: black;
 }
 .icon-search{
     transition: all .3s;

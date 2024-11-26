@@ -3,7 +3,7 @@ import { FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SideMenu from "../SideMenu/SideMenu";
 import SideMenuRight from "../sideMenuRight/sideMenuRight";
-// import "./Style.css"
+import "./Style.css"
 
 function Header({ categoria, cadastro }) {
   const [link, setLink] = useState("/");
@@ -79,7 +79,6 @@ function Header({ categoria, cadastro }) {
               </>
             ) : (
               <>
-                <SideMenuRight hidden={estilo} func={aparecer} />
                 <button
                   onClick={() => aparecer()}
                   className="flex items-center gap-2"
@@ -91,6 +90,7 @@ function Header({ categoria, cadastro }) {
           </div>
         </div>
       </header>
+      <SideMenuRight hidden={estilo} func={aparecer} />
     </>
   );
 }

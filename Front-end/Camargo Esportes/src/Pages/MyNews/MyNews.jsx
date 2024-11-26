@@ -104,6 +104,9 @@ function MyNews() {
                     >
                       Deletar
                     </button>
+                    <Link to={`/editnews/${item.id}`}>
+                    editar
+                    </Link>
                   </div>
                 ))
               ) : (

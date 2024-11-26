@@ -145,13 +145,13 @@ function Login() {
 
                 <div className="flex w-full justify-center gap-4">
                   <button className="py-2 px-5 border rounded-md border-[#06aa48]">
-                    <img src={google} className="h-[32px] w-[32px]" aalt="google login" srcset="" />
+                    <img src={google} className="h-[32px] w-[32px]" aalt="google login" />
                   </button>
                   <button className="py-2 px-5 border rounded-md border-[#06aa48]">
-                    <img src={facebook} className="h-[32px] w-[32px]" alt="facebook login" srcset="" />
+                    <img src={facebook} className="h-[32px] w-[32px]" alt="facebook login" />
                   </button>
                   <button className="py-2 px-5 border rounded-md border-[#06aa48]">
-                    <img src={twitter} className="h-[32px] w-[32px]" alt="twitter login" srcset="" />
+                    <img src={twitter} className="h-[32px] w-[32px]" alt="twitter login" />
                   </button>
                 </div>
 
