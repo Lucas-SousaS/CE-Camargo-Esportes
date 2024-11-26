@@ -1,0 +1,28 @@
+.box-search input{
+    position: relative;
+    transition: all .3s;
+    width: 100px;
+}
+
+.box-search input:focus {
+    width: 200px;
+    background-color: white;
+}
+.box-search:focus-within .icon-search {
+    color: black; /* Altera a cor do ícone */
+}
+.icon-search{
+    transition: all .3s;
+}
+.box-search{
+    transition: all .3s;
+}
+
+.box-search:focus-within {
+    background-color: white;
+  }
+
+.box-search input:focus::placeholder{
+    color: #00000059;
+}
+

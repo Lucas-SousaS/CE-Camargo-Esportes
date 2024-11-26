@@ -4,6 +4,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import CardStatus from "../../components/CardStatus/CardStatus";
 import SecHeader from "../../components/SecHeader/SecHeader";
+import Footer from "../../components/Footer/Footer";
 
 function RegisterNews() {
   const [titulo, setTitulo] = useState("");
@@ -102,7 +103,7 @@ function RegisterNews() {
 
       <CardStatus show={statusShow} status={statusCadastro} />
 
-      <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-4 mb-8">
+      <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-10 mb-20">
         <form
           onSubmit={handleSubmit}
           className={`gap-3 h-1/2 flex flex-col items-center box-form`}
@@ -181,6 +182,7 @@ function RegisterNews() {
           </button>
         </form>
       </div>
+      <Footer />
       </>
       ) : (<>
       <SecHeader />
@@ -196,6 +198,7 @@ function RegisterNews() {
           </div>
 
         </div>
+        <Footer />
       </>
       )}
     </>

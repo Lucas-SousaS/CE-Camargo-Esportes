@@ -44,6 +44,25 @@ function News() {
       });
   }, []);
 
+  const [isLogged, setIsLogged] = useState(false)
+  useEffect(() => {
+    const checkSession = async () => {
+      const response = await fetch('http://localhost/CE-Camargo-Esportes/Back-end/check-session.php', {
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (data.loggedIn) {
+        setIsLogged(true)
+        setUser(data.user)
+      } else {
+        setIsLogged(false)
+      }
+    };
+
+    checkSession();
+  }, []);
+
+
   if (loading) {
     return <div>Carregando...</div>;
   }
@@ -54,7 +73,7 @@ function News() {
 
   return (
     <>
-      <Header />
+      <Header cadastro={isLogged} />
       <div className="min-h-screen w-screen flex items-start justify-center py-20">
         {noticia ? (
           <div className="flex flex-col w-1/2">
