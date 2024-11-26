@@ -13,7 +13,7 @@ Camargo Esportes é uma plataforma de notícias focada no futebol, trazendo atua
 - **Frontend:** React, Tailwind css
 - **Backend:** PHP
 - **Banco de Dados:** MySql
-- **Outras ferramentas:** Axios para requisições API
+- **Outras ferramentas:** Fetch para requisições API
 
 ## Instalação
 
