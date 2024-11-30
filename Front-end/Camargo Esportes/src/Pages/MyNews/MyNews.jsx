@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import SecHeader from "../../components/SecHeader/SecHeader";
 import { Link } from "react-router-dom";
 import { FaCarCrash, FaEdit, FaTrash } from "react-icons/fa";
+import Footer from "../../components/Footer/Footer";
 function MyNews() {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState([]);
@@ -84,23 +85,16 @@ function MyNews() {
     }
   };
 
-  const textStyle = {
-    display: "-webkit-box",
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  };
-
   return (
     <>
       <SecHeader Titulo={"Minhas notícias"} />
       <div className="w-screen min-h-screen flex flex-col gap-16 justify-center items-center">
         {isLogged ? (
           <>
-            <div className="p-10 flex flex-col gap-10 absolute items-center mt-10">
+            <div className="p-10 flex flex-col gap-10 mt-10 items-center justify-start min-h-screen">
               {noticia.length > 0 ? (
-                noticia.map((item) => (
+                <>
+                {noticia.map((item) => (
                   <div
                     key={item.id}
                     class="bg-gray-50 border border-gray-200 shadow-2xl rounded-lg p-6 py-8 flex gap-12 items-center justify-between"
@@ -143,7 +137,17 @@ function MyNews() {
                       </button>
                     </div>
                   </div>
-                ))
+                ))}
+
+                <div className="flex flex-col items-center gap-3">
+                  <Link
+                      to="/publicacaoNoticia"
+                      className="mt-10 px-4 py-2 bg-[#06aa48] text-white rounded hover:bg-[#058a3a] hover:shadow-2xl transition-all font-medium"
+                    >
+                      Publique mais Notícias!
+                    </Link>
+                </div>
+                </>
               ) : (
                 <div className="flex flex-col items-center justify-center mt-[-20px]  bg-gray-100">
                   <div className="flex flex-col items-center gap-2 p-4 rounded-lg shadow-xl bg-white max-w-lg">
@@ -172,6 +176,7 @@ function MyNews() {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 }
