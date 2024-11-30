@@ -17,9 +17,20 @@ function EditNews() {
   const [user, setUser] = useState([]);
   const { id } = useParams();
 
+  const [errorTitulo, setErrorTitulo] = useState("");
+  const [errorConteudo, setErrorConteudo] = useState("");
+  const [errorCategoria, setErrorCategoria] = useState("");
+  const [errorImagem1, setErrorImagem1] = useState("");
+  const [errorImagem2, setErrorImagem2] = useState("");
+  const [errorMateriaCompleta, setErrorMateriaCompleta] = useState("");
+  const [message, setMessage] = useState("");
+  const [sucess, setSucess] = useState();
+
   useEffect(() => {
-    setImagens(`{"imagem_principal": "${imagem1}", "imagem_adicional_1": "${imagem2}"}`);
-  }, [imagem1, imagem2])
+    setImagens(
+      `{"imagem_principal": "${imagem1}", "imagem_adicional_1": "${imagem2}"}`
+    );
+  }, [imagem1, imagem2]);
 
   useEffect(() => {
     const url = `http://localhost/CE-Camargo-Esportes/Back-end/get_news.php?id=${id}`;
@@ -36,12 +47,12 @@ function EditNews() {
           setError(data.error);
         } else {
           const imagesNew = JSON.parse(data.imagens);
-            setImagem1(imagesNew.imagem_principal)
-            setImagem2(imagesNew.imagem_adicional_1)
-            setTitulo(data.titulo)
-            setConteudo(data.conteudo)
-            setCategoria(data.categoria)
-            setMateriaCompleta(data.materiaCompleta)
+          setImagem1(imagesNew.imagem_principal);
+          setImagem2(imagesNew.imagem_adicional_1);
+          setTitulo(data.titulo);
+          setConteudo(data.conteudo);
+          setCategoria(data.categoria);
+          setMateriaCompleta(data.materiaCompleta);
         }
       })
       .catch((err) => {})
@@ -51,6 +62,47 @@ function EditNews() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!titulo) {
+      setErrorTitulo("Por favor, insira o titulo.");
+      return;
+    } else {
+      setErrorTitulo("");
+    }
+
+    if (!conteudo) {
+      setErrorConteudo("Por favor, insira o conteudo.");
+      return;
+    } else {
+      setErrorConteudo("");
+    }
+
+    if (!categoria) {
+      setErrorCategoria("Por favor, insira a categoria.");
+      return;
+    } else {
+      setErrorCategoria("");
+    }
+
+    if (!imagem1) {
+      setErrorImagem1("Por favor, insira a 1° imagem.");
+      return;
+    } else {
+      setErrorImagem1("");
+    }
+
+    if (!imagem2) {
+      setErrorImagem2("Por favor, insira a 2° imagem.");
+      return;
+    } else {
+      setErrorImagem2("");
+    }
+
+    if (!materiaCompleta) {
+      setErrorMateriaCompleta("Por favor, insira a matéria.");
+      return;
+    } else {
+      setErrorMateriaCompleta("");
+    }
     try {
       const response = await fetch(
         "http://localhost/CE-Camargo-Esportes/Back-end/update_news.php",
@@ -83,13 +135,18 @@ function EditNews() {
       console.log("Resposta do servidor:", data);
 
       if (data.status === "success") {
-        console.log("Você se cadastrou com sucesso!");
+        setSucess(true);
+        setMessage(`Notícia atualizada com sucesso!`);
+        setTimeout(() => {
+          setMessage()
+        }, 2000);
       } else {
-        console.log("Erro ao cadastrar a notícia");
+        setSucess(false);
+        setMessage(`Erro ao atualizar a notícia`);
       }
-
     } catch (error) {
-      console.error("Erro ao enviar dados:", error);
+      setSucess(false);
+      setMessage(`Erro ao enviar dados`);
     }
   };
 
@@ -106,7 +163,6 @@ function EditNews() {
       if (data.loggedIn) {
         setIsLogged(true);
         setUser(data.user);
-        console.log(data.user);
         setAutor(data.user.nome);
       } else {
         setIsLogged(false);
@@ -125,8 +181,8 @@ function EditNews() {
           onSubmit={handleSubmit}
           className={`gap-3 h-1/2 flex flex-col items-center box-form`}
         >
-          <h1 className="font-bold text-3xl text-gray-600">
-            Olá, {user.nome}! Atualize sua notícia
+          <h1 className="font-bold text-3xl text-gray-600 mb-8">
+            Olá, {user.nome}!
           </h1>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -138,6 +194,9 @@ function EditNews() {
               func={setTitulo}
               value={titulo}
             />
+            {errorTitulo && (
+              <p className="text-red-500 text-sm mt-1">{errorTitulo}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -149,17 +208,41 @@ function EditNews() {
               func={setConteudo}
               value={conteudo}
             />
+
+            {errorConteudo && (
+              <p className="text-red-500 text-sm mt-1">{errorConteudo}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
-            <Input
-              label={"Categoria"}
-              type={"text"}
-              id={"categoria"}
-              placeholder={"Informe a categoria da notícia"}
-              func={setCategoria}
+            <label
+              htmlFor={"categoria"}
+              className=" text-gray-600 font-semibold"
+            >
+              Categoria
+            </label>
+
+            <select
+              className="text-[#888] py-3 px-1 border-[2px] border-[#80808060] rounded-md"
+              type="text"
               value={categoria}
-            />
+              onChange={(e) => setCategoria(e.target.value)}
+              id="categoria"
+              placeholder="Informe a categoria da notícia"
+            >
+              <option value="">Categorias</option>
+              <option value="Futebol">Futebol</option>
+              <option value="Basquete">Basquete</option>
+              <option value="Volei">Volei</option>
+              <option value="Boxe">Boxe</option>
+              <option value="Tênis">Tênis</option>
+              <option value="Golfe">Golfe</option>
+              <option value="Fórmula 1">Fórmula 1</option>
+            </select>
+
+            {errorCategoria && (
+              <p className="text-red-500 text-sm mt-1">{errorCategoria}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -171,6 +254,9 @@ function EditNews() {
               func={setImagem1}
               value={imagem1}
             />
+            {errorImagem1 && (
+              <p className="text-red-500 text-sm mt-1">{errorImagem1}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -182,11 +268,15 @@ function EditNews() {
               func={setImagem2}
               value={imagem2}
             />
+
+            {errorImagem2 && (
+              <p className="text-red-500 text-sm mt-1">{errorImagem2}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
             <label
-              for="materiaCompleta"
+              htmlFor="materiaCompleta"
               className="text-gray-600 font-semibold"
             >
               Matéria Completa:
@@ -199,17 +289,36 @@ function EditNews() {
               value={materiaCompleta}
               onChange={(e) => setMateriaCompleta(e.target.value)}
             ></textarea>
+
+            {errorMateriaCompleta && (
+              <p className="text-red-500 text-sm mt-1">
+                {errorMateriaCompleta}
+              </p>
+            )}
           </div>
+
+          {message ? (
+            <div className="w-full mb-4">
+              <div
+                className={`w-full flex justify-center p-2 items-center rounded ${
+                  sucess ? "bg-green-200" : "bg-red-200"
+                }`}
+              >
+                <h2 className={`${sucess ? "text-green-700" : "text-red-700"}`}>
+                  {message}
+                </h2>
+              </div>
+            </div>
+          ) : null}
 
           <button
             type="submit"
             className="bg-[#06aa48] p-1 py-2 w-[100%] rounded-md text-white hover:shadow-xl transition-all hover:brightness-110"
           >
-            Atualizar Notícia
+            Publicar Notícia
           </button>
         </form>
       </div>
-
       <Footer />
     </>
   );
