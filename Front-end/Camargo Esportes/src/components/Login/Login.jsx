@@ -5,7 +5,6 @@ import google from "../../assets/icons8-google.svg";
 import facebook from "../../assets/icons8-facebook.svg";
 import twitter from "../../assets/icons8-twitter.svg";
 import Footer from "../Footer/Footer";
-import "./Style.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");

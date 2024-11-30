@@ -95,16 +95,15 @@ function MyNews() {
   return (
     <>
       <SecHeader Titulo={"Minhas notícias"} />
-      <div className="w-screen min-h-screen flex flex-col gap-16  items-center">
+      <div className="w-screen min-h-screen flex flex-col gap-16 justify-center items-center">
         {isLogged ? (
           <>
-            <div className="p-10 flex flex-col gap-4 absolute items-center mt-10">
-              {/* <h1 class="text-3xl font-bold text-gray-800 mb-10">Gerenciar Notícias</h1> */}
+            <div className="p-10 flex flex-col gap-10 absolute items-center mt-10">
               {noticia.length > 0 ? (
                 noticia.map((item) => (
                   <div
                     key={item.id}
-                    class="bg-gray-50 border border-gray-300 rounded-lg p-6 py-8 flex gap-12 items-center justify-between"
+                    class="bg-gray-50 border border-gray-200 shadow-2xl rounded-lg p-6 py-8 flex gap-12 items-center justify-between"
                   >
                     <div className="flex items-center gap-10">
                       <div className="h-28 w-60 flex items-center">
@@ -146,14 +145,26 @@ function MyNews() {
                   </div>
                 ))
               ) : (
-                <div>
-                  <p>Não há notícias para mostrar.</p>
-                  <Link to={"/publicacaoNoticia"}>Publique sua Notícia!</Link>
+                <div className="flex flex-col items-center justify-center mt-[-20px]  bg-gray-100">
+                  <div className="flex flex-col items-center gap-2 p-4 rounded-lg shadow-xl bg-white max-w-lg">
+                    <img
+                      src="https://via.placeholder.com/300x200?text=No+News"
+                      alt="Nenhuma notícia disponível"
+                      className="w-full h-auto rounded mb-4"
+                    />
+                    <p className="text-gray-700 font-medium text-xl mb-2">
+                      Não há notícias para mostrar.
+                    </p>
+                    <Link
+                      to="/publicacaoNoticia"
+                      className="px-4 py-2 bg-[#06aa48] text-white rounded hover:bg-[#058a3a] hover:shadow-2xl transition-all"
+                    >
+                      Publique sua Notícia!
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
-
-            
           </>
         ) : (
           <div>
