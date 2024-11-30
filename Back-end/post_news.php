@@ -14,7 +14,7 @@ $materiaCompleta = isset($dados['materiaCompleta']) && is_string($dados['materia
 $autor_id = isset($dados['autor_id']) && is_numeric($dados['autor_id']) ? (int)$dados['autor_id'] : null;
 
 try {
-    if (!$titulo || !$conteudo || !$autor || !$categoria || !$materiaCompleta) {
+    if (!$titulo || !$conteudo || !$autor || !$categoria || !$imagens || !$materiaCompleta || !$autor_id) {
         echo json_encode(["status" => "error", "message" => "Campos obrigatórios faltando."]);
         exit;
     }
