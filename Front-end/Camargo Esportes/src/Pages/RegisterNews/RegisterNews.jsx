@@ -99,7 +99,7 @@ function RegisterNews() {
   return (
     <>{isLogged ? (
       <>
-      <SecHeader />
+      <SecHeader Titulo={"Publicar Notícia"} link={"/publicacaoNoticia"} />
 
       <CardStatus show={statusShow} status={statusCadastro} />
 
@@ -108,8 +108,8 @@ function RegisterNews() {
           onSubmit={handleSubmit}
           className={`gap-3 h-1/2 flex flex-col items-center box-form`}
         >
-          <h1 className="font-bold text-3xl text-gray-600">
-          Olá, {user.nome}! Publique sua notícia
+          <h1 className="font-bold text-3xl text-gray-600 mb-8">
+          Olá, {user.nome}! 
           </h1>
 
           <div className="flex flex-col gap-1 w-[100%]">

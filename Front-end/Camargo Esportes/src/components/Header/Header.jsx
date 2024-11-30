@@ -9,7 +9,7 @@ function Header({ categoria, cadastro }) {
   const [link, setLink] = useState("/");
 
   if (categoria == null || categoria == undefined) {
-    categoria = "ce";
+    categoria = "Camargo Esporte";
   } else {
     setLink("/");
   }
@@ -53,7 +53,7 @@ function Header({ categoria, cadastro }) {
 
         <div className="absolute flex items-center justify-center left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
           <Link to={link} className="flex items-center justify-center">
-            <h1 className="font-bold text-5xl text-white">{categoria}</h1>
+            <h1 className="font-bold text-2xl text-white">{categoria}</h1>
           </Link>
         </div>
 

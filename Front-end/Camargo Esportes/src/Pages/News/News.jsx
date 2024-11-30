@@ -26,13 +26,10 @@ function News() {
           setError(data.error);
         } else {
           const imagesNew = JSON.parse(data.imagens);
-          console.log(imagesNew)
           setImages(imagesNew);
-
           const string = data.materiaCompleta;
           const paragraphs = string.split(/(?<=\w[.!?])\s+/);
           setMateriaF(paragraphs);
-
           setNoticia(data);
         }
       })
@@ -53,7 +50,6 @@ function News() {
       const data = await response.json();
       if (data.loggedIn) {
         setIsLogged(true)
-        setUser(data.user)
       } else {
         setIsLogged(false)
       }

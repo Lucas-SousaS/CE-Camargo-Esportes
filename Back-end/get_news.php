@@ -7,7 +7,7 @@ try {
 
     $stmt = $pdo->prepare("SELECT * FROM noticias WHERE id = :id");
 
-    $id = $_GET["id"];
+    $id = (int) $_GET["id"];
 
     $stmt->execute([':id' => $id]);
 

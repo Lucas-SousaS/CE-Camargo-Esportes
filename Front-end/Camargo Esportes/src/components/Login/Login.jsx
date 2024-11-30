@@ -28,7 +28,7 @@ function Login() {
       const data = await response.json();
       if (data.success) {
         setMessage("Login realizado com sucesso!");
-        console.log("Usuário logado:", data.user);
+        console.log(data);
         window.location.href = "/";
         setMessage(`Bem-vindo, ${data.user}!`);
       } else {

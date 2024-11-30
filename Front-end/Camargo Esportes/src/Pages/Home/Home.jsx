@@ -63,11 +63,11 @@ function Home() {
               </div>
 
               <div className="w-1/2 flex flex-col gap-2">
-                <h1 className="font-bold text-2xl text-[#06aa48]">
+                <h1 className="font-bold text-2xl text-[#06aa48] hover:brightness-125 transition-all">
                   {item.titulo}
                 </h1>
                 <p className="font-normal text-md truncate">{item.conteudo}</p>
-                <span className="font normal text-sm">
+                <span className="font-light text-sm text-gray-600">
                   {item.data_publicacao} | {item.categoria}
                 </span>
               </div>
