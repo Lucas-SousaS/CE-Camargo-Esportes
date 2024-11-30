@@ -40,10 +40,9 @@ function Login() {
       );
       const data = await response.json();
       if (data.success) {
-        setSucess(true);
-        setMessage("Login realizado com sucesso!");
         setError("");
         setErrorEmail;
+        setSucess(true);
         setMessage(`Bem-vindo, ${data.user.nome}!`);
         setTimeout(() => {
           window.location.href = "/";
