@@ -63,16 +63,15 @@ const Sidebar = ({ hidden, func }) => {
 
   return (
     <div
-      className={`z-10 h-screen fixed ${hidden} duration-500 top-0 bg-white shadow-2xl flex flex-col justify-evenly items-center px-5 min-w-[20%]`}
+      className={`z-10 h-screen fixed ${hidden} duration-500 top-0 bg-white shadow-2xl flex flex-col justify-evenly items-center px-5 min-w-[22%]`}
     >
       <div className="flex relative justify-between w-full items-center p-4">
         <button onClick={func} className="text-primary text-lg">
           <FaArrowLeft className="hover:brightness-110" />
         </button>
-        <h1 className="text-primary font-bold text-xl w-40 text-center">
+        <h1 className="text-primary font-bold text-2xl w-45 text-center text-[#06aa48]">
           Camargo Esporte
         </h1>
-        <div></div>
       </div>
 
       <div className="w-[90%] flex flex-col items-center space-y-4">

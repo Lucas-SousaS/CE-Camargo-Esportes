@@ -26,8 +26,11 @@ header('Access-Control-Allow-Headers: Content-Type');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if (!isset($data['email']) || !isset($data['senha'])) {
-        echo json_encode(['success' => false, 'message' => 'Preencha todos os campos.']);
+    if (!isset($data['email'])  ) {
+        echo json_encode(['success' => false, 'message' => 'Digite seu email corretamente']);
+        exit();
+    } else if (!isset($data['senha'])){
+        echo json_encode(['success' => false, 'message' => 'Digite sua senha corretamente']);
         exit();
     }
 
