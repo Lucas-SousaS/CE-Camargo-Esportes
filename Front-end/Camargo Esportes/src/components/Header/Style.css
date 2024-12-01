@@ -2,11 +2,15 @@
     position: relative;
     transition: all .3s;
     width: 100px;
+    font-size: medium;
+    color: #ccc;
+    font-weight: 400;
 }
 
 .box-search input:focus {
     width: 200px;
     background-color: white;
+    color:black;
 }
 .box-search:focus-within .icon-search {
     color: black;

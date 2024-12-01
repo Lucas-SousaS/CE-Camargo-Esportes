@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 
 $query = "SELECT * FROM noticias";
 try {
-    $stmt = $conn->query($query);
+    $stmt = $pdo->query($query);
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     header('Content-Type: application/json');
     echo json_encode($tasks);

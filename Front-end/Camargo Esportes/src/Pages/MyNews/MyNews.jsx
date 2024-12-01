@@ -8,6 +8,8 @@ function MyNews() {
   const [user, setUser] = useState([]);
   const [idUser, setIdUser] = useState();
   const [noticia, setNoticia] = useState([]);
+  const [message, setMessage] = useState("");
+  const [sucess, setSucess] = useState();
 
   useEffect(() => {
     const checkSession = async () => {
@@ -63,7 +65,6 @@ function MyNews() {
     if (idNews) {
       if (confirm("Tem certeza de que deseja excluir esta notícia?")) {
         try {
-          console.log(idNews);
           const response = await fetch(
             "http://localhost/CE-Camargo-Esportes/Back-end/delete_news.php",
             {
@@ -77,9 +78,21 @@ function MyNews() {
             }
           );
 
-          window.location.href = "/mynews";
+          const data = await response.json();
+
+          if (data.status === "success") {
+            setSucess(true);
+            setMessage(data.message);
+            setTimeout(() => {
+              window.location.href = "/mynews";
+            }, 2000);
+          } else {
+            setSucess(false);
+            setMessage(data.message);
+          }
         } catch (error) {
-          console.error("Erro ao enviar dados:", error);
+          setSucess(false);
+          setMessage(data.message);
         }
       }
     }
@@ -92,61 +105,78 @@ function MyNews() {
         {isLogged ? (
           <>
             <div className="p-10 flex flex-col gap-10 mt-10 items-center justify-start min-h-screen">
+              {message ? (
+                <div className="w-full mb-4">
+                  <div
+                    className={`w-full flex justify-center p-2 items-center rounded ${
+                      sucess ? "bg-green-200" : "bg-red-200"
+                    }`}
+                  >
+                    <h2
+                      className={`${
+                        sucess ? "text-green-700" : "text-red-700"
+                      }`}
+                    >
+                      {message}
+                    </h2>
+                  </div>
+                </div>
+              ) : null}
               {noticia.length > 0 ? (
                 <>
-                {noticia.map((item) => (
-                  <div
-                    key={item.id}
-                    class="bg-gray-50 border border-gray-200 shadow-2xl rounded-lg p-6 py-8 flex gap-12 items-center justify-between"
-                  >
-                    <div className="flex items-center gap-10">
-                      <div className="h-28 w-60 flex items-center">
-                        <img
-                          src="https://imgs.search.brave.com/cWe3Gv7kKUE6-9YbZKTzpt2NthlSQkj7NZaOFqL-ZXs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zMi1n/ZS5nbGJpbWcuY29t/L1dfSFY2Z0M2Ym95/SlQwMmdwVkdXaWQ0/V09vQT0vMHgwOjEy/ODB4NzIwLzU0MHgz/MDQvc21hcnQvZmls/dGVyczptYXhfYWdl/KDM2MDApL2h0dHBz/Oi8vaS5zMy5nbGJp/bWcuY29tL3YxL0FV/VEhfYmM4MjI4YjY2/NzNmNDg4YWEyNTNi/YmNiMDNjODBlYzUv/aW50ZXJuYWxfcGhv/dG9zL2JzLzIwMjMv/MC9WL0R5bkJpWlRB/YUlSWGxBZmFKUUFn/L2UyNDAwM2Y4LTRj/YzAtNDcyMy1hYzQ2/LTA1YWExY2Q2MTQ0/Mi5qZmlm"
-                          alt=""
-                          className="object-contain rounded"
-                        />
+                  {noticia.map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-gray-50 border border-gray-200 shadow-2xl rounded-lg p-6 py-8 flex gap-12 items-center justify-between"
+                    >
+                      <div className="flex items-center gap-10">
+                        <div className="h-28 w-60 flex items-center">
+                          <img
+                            src="https://imgs.search.brave.com/cWe3Gv7kKUE6-9YbZKTzpt2NthlSQkj7NZaOFqL-ZXs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zMi1n/ZS5nbGJpbWcuY29t/L1dfSFY2Z0M2Ym95/SlQwMmdwVkdXaWQ0/V09vQT0vMHgwOjEy/ODB4NzIwLzU0MHgz/MDQvc21hcnQvZmls/dGVyczptYXhfYWdl/KDM2MDApL2h0dHBz/Oi8vaS5zMy5nbGJp/bWcuY29tL3YxL0FV/VEhfYmM4MjI4YjY2/NzNmNDg4YWEyNTNi/YmNiMDNjODBlYzUv/aW50ZXJuYWxfcGhv/dG9zL2JzLzIwMjMv/MC9WL0R5bkJpWlRB/YUlSWGxBZmFKUUFn/L2UyNDAwM2Y4LTRj/YzAtNDcyMy1hYzQ2/LTA1YWExY2Q2MTQ0/Mi5qZmlm"
+                            alt=""
+                            className="object-contain rounded"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <h2 className="text-xl font-semibold text-gray-800 truncate w-44">
+                            {item.titulo}
+                          </h2>
+                          <p className="text-gray-600 text-sm">
+                            publicado em: {item.data_publicacao}
+                          </p>
+                          <div className="w-60 truncate">{item.conteudo}</div>
+                        </div>
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <h2 class="text-xl font-semibold text-gray-800 truncate w-44">
-                          {item.titulo}
-                        </h2>
-                        <p class="text-gray-600 text-sm">
-                          publicado em: {item.data_publicacao}
-                        </p>
-                        <div className="w-60 truncate">{item.conteudo}</div>
+                      <div className="space-x-2 flex items-center">
+                        <Link
+                          className="flex items-center gap-2 transition-all bg-[#06aa48] hover:bg-[#058a3a]  text-white px-4 py-2 rounded-md text-sm"
+                          to={`/editnews/${item.id}`}
+                        >
+                          <h1 className="font-bold">Editar</h1>
+                          <FaEdit />
+                        </Link>
+
+                        <button
+                          className="flex items-center gap-2 transition-all  bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm"
+                          onClick={() => {
+                            handleDelete(item.id);
+                          }}
+                        >
+                          <h1 className="font-bold">Deletar</h1>
+                          <FaTrash />
+                        </button>
                       </div>
                     </div>
-                    <div class="space-x-2 flex items-center">
-                      <Link
-                        className="flex items-center gap-2 transition-all bg-[#06aa48] hover:bg-[#058a3a]  text-white px-4 py-2 rounded-md text-sm"
-                        to={`/editnews/${item.id}`}
-                      >
-                        <h1 className="font-bold">Editar</h1>
-                        <FaEdit />
-                      </Link>
+                  ))}
 
-                      <button
-                        class="flex items-center gap-2 transition-all  bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm"
-                        onClick={() => {
-                          handleDelete(item.id);
-                        }}
-                      >
-                        <h1 className="font-bold">Deletar</h1>
-                        <FaTrash />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="flex flex-col items-center gap-3">
-                  <Link
+                  <div className="flex flex-col items-center gap-3">
+                    <Link
                       to="/publicacaoNoticia"
                       className="mt-10 px-4 py-2 bg-[#06aa48] text-white rounded hover:bg-[#058a3a] hover:shadow-2xl transition-all font-medium"
                     >
                       Publique mais Notícias!
                     </Link>
-                </div>
+                  </div>
                 </>
               ) : (
                 <div className="flex flex-col items-center justify-center mt-[-20px]  bg-gray-100">

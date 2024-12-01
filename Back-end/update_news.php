@@ -1,6 +1,16 @@
 <?php
 include('database.php');
 
+header("Access-Control-Allow-Origin: *");
+
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
+
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit(0);
+}
+
 $dados = json_decode(file_get_contents("php://input"), true);
 
 $data_publicacao = date('Y-m-d');
@@ -22,7 +32,7 @@ try {
 
     $query = "UPDATE noticias SET titulo = :titulo, conteudo = :conteudo, data_publicacao = :data_publicacao, autor = :autor, categoria = :categoria, imagens = :imagens, materiaCompleta = :materiaCompleta WHERE id = :id;";
 
-    $stmt = $conn->prepare($query);
+    $stmt = $pdo->prepare($query);
 
     $stmt->bindParam(':titulo', $titulo);
     $stmt->bindParam(':conteudo', $conteudo);

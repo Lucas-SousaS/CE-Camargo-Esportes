@@ -108,17 +108,23 @@ function RegisterNews() {
 
       if (data.status === "success") {
         setSucess(true);
-        setMessage(`Cadastro realizado com sucesso!`);
+        setMessage(data.message);
         setTimeout(() => {
-          setMessage()
+          setMessage();
         }, 2000);
       } else {
         setSucess(false);
-        setMessage(`Erro ao cadastrar notícia`);
+        setTimeout(() => {
+          window.location.href = "/publicacaoNoticia";
+        }, 2000);
+        setMessage(data.message);
       }
     } catch (error) {
       setSucess(false);
-      setMessage(`Erro ao enviar dados`);
+      setTimeout(() => {
+        window.location.href = "/publicacaoNoticia";
+      }, 2000);
+      setMessage(data.message);
     }
   };
 
@@ -191,13 +197,24 @@ function RegisterNews() {
               </div>
 
               <div className="flex flex-col gap-1 w-[100%]">
-                
-                <label htmlFor={"categoria"} className=" text-gray-600 font-semibold">
+                <label
+                  htmlFor={"categoria"}
+                  className=" text-gray-600 font-semibold"
+                >
                   Categoria
                 </label>
 
-                <select className="text-[#888] py-3 px-1 border-[2px] border-[#80808060] rounded-md" type="text" value={categoria} onChange={(e) => setCategoria(e.target.value)} id="categoria" placeholder="Informe a categoria da notícia">
-                <option value="">Categorias</option>
+                <select
+                  className="text-[#888] py-3 px-1 border-[2px] border-[#80808060] rounded-md"
+                  type="text"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  id="categoria"
+                  placeholder="Informe a categoria da notícia"
+                >
+                  <option value="" className="">
+                    Categorias
+                  </option>
                   <option value="Futebol">Futebol</option>
                   <option value="Basquete">Basquete</option>
                   <option value="Volei">Volei</option>

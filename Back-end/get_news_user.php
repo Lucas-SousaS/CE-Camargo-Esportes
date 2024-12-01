@@ -1,6 +1,6 @@
 <?php
 $dados = json_decode(file_get_contents("php://input"), true);
-
+include("database.php");
 $allowed_origins = [
     'http://localhost:3000', 
     'http://localhost:5173',
@@ -23,8 +23,6 @@ header('Access-Control-Allow-Headers: Content-Type');
 $id = (int) $dados["idUser"];
 
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=camargo_esportes', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare("SELECT * FROM noticias WHERE autor_id = :id");
     $stmt->execute([':id' => $id]);

@@ -1,13 +1,13 @@
 <?php
     $username = "root";
-    $host  = "localhost";
-    $password = "";
-    $database = "camargo_esportes";
+    $host  = "autorack.proxy.rlwy.net";
+    $password = "CjeXzwtDhZJzGGqAvBQWyHaTvcUTBEfa";
+    $database = "railway";
+    $port = 28830;
 
-    $conn = new mysqli($host, $username, $password, $database);
+    $conn = new mysqli($host, $username, $password, $database, $port);
 
-    if ($conn->error){
-        echo "erro ao conectar banco de dados";
+    if ($conn->connect_error) {
+        die("Erro ao conectar ao banco de dados: " . $conn->connect_error);
     }
-
 ?>

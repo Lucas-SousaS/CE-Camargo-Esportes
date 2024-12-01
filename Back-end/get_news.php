@@ -1,9 +1,15 @@
 <?php
-include("./database.php");
+include("database.php");
+header("Access-Control-Allow-Origin: *");
 
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
+
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit(0);
+}
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=camargo_esportes', 'root', '');
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare("SELECT * FROM noticias WHERE id = :id");
 
@@ -11,7 +17,7 @@ try {
 
     $stmt->execute([':id' => $id]);
 
-    $noticias = $stmt->fetch(PDO::FETCH_ASSOC); 
+    $noticias = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($noticias) {
         echo json_encode($noticias);

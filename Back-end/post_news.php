@@ -1,6 +1,17 @@
 <?php
 include('database.php');
 
+header("Access-Control-Allow-Origin: *");
+
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
+
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit(0);
+}
+
+
 $dados = json_decode(file_get_contents("php://input"), true);
 
 $data_publicacao = date('Y-m-d');
@@ -22,7 +33,7 @@ try {
     $query = "INSERT INTO noticias (titulo, conteudo, autor, autor_id, categoria, imagens, materiaCompleta, data_publicacao)
               VALUES (:titulo, :conteudo, :autor, :autor_id, :categoria, :imagens, :materiaCompleta, :data_publicacao)";
 
-    $stmt = $conn->prepare($query);
+    $stmt = $pdo->prepare($query);
 
     $stmt->bindParam(':titulo', $titulo);
     $stmt->bindParam(':conteudo', $conteudo);

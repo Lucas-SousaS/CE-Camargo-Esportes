@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SideMenu from "../SideMenu/SideMenu";
 import SideMenuRight from "../sideMenuRight/sideMenuRight";
-import "./Style.css"
+import "./Style.css";
 
 function Header({ categoria, cadastro }) {
   const [link, setLink] = useState("/");
+  const [noticia, setNoticia] = useState([]);
 
   if (categoria == null || categoria == undefined) {
     categoria = "Camargo Esporte";
@@ -31,6 +32,31 @@ function Header({ categoria, cadastro }) {
       setEstilo("right-[-100%]");
     }
   }
+
+
+  const [query, setQuery] = useState("")
+
+  const handleSearch = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost/CE-Camargo-Esportes/Back-end/search_news.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query
+          }),
+        }
+      );
+      const data = await response.json();
+
+      setNoticia(data);
+    } catch (error) {
+      console.log(error)
+    }
+  };
   return (
     <>
       <SideMenu hidden={style} func={Esconder} />
@@ -58,13 +84,29 @@ function Header({ categoria, cadastro }) {
         </div>
 
         <div className="flex items-center justify-center gap-4 absolute right-[10%] top-[50%] translate-y-[-50%]">
-          <div className="flex items-center bg-[#058a3a] gap-2 p-1 px-2 rounded box-search">
-            <FaSearch className="text-white icon-search" />
-            <input
-              type="text"
-              className="bg-[#058a3a] font-bold outline-none placeholder:text-white"
-              placeholder="Buscar"
-            />
+          <div className="mt-64">
+            <div className="flex items-center bg-[#058a3a] gap-2 p-1 px-2 rounded box-search ">
+          
+              <button onClick={() => handleSearch()}>
+                <FaSearch className="text-white icon-search" />
+              </button>
+              <input
+                type="text"
+                className={`rounded px-4 font-bold outline-none placeholder:text-white ${query ? "text-black bg-white" : null}`}
+                placeholder="Buscar"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+            <div
+              id="Box-flutuante"
+              className="h-60 rounded shadow-2xl  bg-white shadow-slate-750 border-2 p-4 w-full mt-8 z-20 pointer-events-none"
+            >
+              {noticia.map((item) => (
+                <div key={item.id}>
+                  <h1>{item.titulo}</h1>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="flex gap-1 items-center">
             {!cadastro ? (
