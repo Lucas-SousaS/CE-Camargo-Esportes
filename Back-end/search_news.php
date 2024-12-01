@@ -1,18 +1,23 @@
 <?php
 include("database.php");
-$params = json_decode(file_get_contents("php://input"), true);
+$dados = json_decode(file_get_contents("php://input"), true);
 
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
-$dados = isset($params["query"]) ? $params["query"] : null;
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit(0);
+}
 
-echo ($dados);
+
+if (json_last_error() !== JSON_ERROR_NONE) {
+    echo json_encode(['error' => 'JSON inválido']);
+    exit();
+}
 
 $stmt = $pdo->prepare("SELECT * FROM noticias WHERE titulo LIKE ? OR conteudo LIKE ?");
-$stmt->execute(['%' . $dados . '%', '%' . $dados . '%']);
+$stmt->execute(['%' . $dados['pesquisa'] . '%', '%' . $dados['pesquisa'] . '%']);
 $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($resultados) {

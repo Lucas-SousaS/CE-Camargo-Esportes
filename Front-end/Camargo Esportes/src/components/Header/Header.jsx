@@ -34,7 +34,7 @@ function Header({ categoria, cadastro }) {
   }
 
 
-  const [query, setQuery] = useState("")
+  const [pesquisa, setPesquisa] = useState("")
 
   const handleSearch = async () => {
     try {
@@ -46,13 +46,12 @@ function Header({ categoria, cadastro }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            query
-          }),
+            pesquisa
+          })
         }
       );
       const data = await response.json();
-
-      setNoticia(data);
+      setNoticia(data)  
     } catch (error) {
       console.log(error)
     }
@@ -84,7 +83,7 @@ function Header({ categoria, cadastro }) {
         </div>
 
         <div className="flex items-center justify-center gap-4 absolute right-[10%] top-[50%] translate-y-[-50%]">
-          <div className="mt-64">
+          <div className="mt-64 ">
             <div className="flex items-center bg-[#058a3a] gap-2 p-1 px-2 rounded box-search ">
           
               <button onClick={() => handleSearch()}>
@@ -92,20 +91,20 @@ function Header({ categoria, cadastro }) {
               </button>
               <input
                 type="text"
-                className={`rounded px-4 font-bold outline-none placeholder:text-white ${query ? "text-black bg-white" : null}`}
+                className={`rounded px-4 font-bold outline-none placeholder:text-white ${pesquisa ? "text-black bg-white" : null}`}
                 placeholder="Buscar"
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => setPesquisa(e.target.value)}
               />
             </div>
             <div
               id="Box-flutuante"
-              className="h-60 rounded shadow-2xl  bg-white shadow-slate-750 border-2 p-4 w-full mt-8 z-20 pointer-events-none"
+              className=" h-60 rounded shadow-2xl  bg-white shadow-slate-750 border-2 p-4 mt-8 z-20 pointer-events-none"
             >
-              {noticia.map((item) => (
-                <div key={item.id}>
+              {noticia ? noticia.map((item) => (
+                <div key={item.id} className="w-30">
                   <h1>{item.titulo}</h1>
                 </div>
-              ))}
+              )): null}
             </div>
           </div>
           <div className="flex gap-1 items-center">
