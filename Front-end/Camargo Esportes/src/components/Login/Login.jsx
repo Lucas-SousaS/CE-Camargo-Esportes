@@ -46,9 +46,9 @@ function Login() {
         setSucess(true);
         setMessage(`Bem-vindo, ${data.user.nome}!`);
         setLoading(false);
-        // setTimeout(() => {
-        //   window.location.href = "/";
-        // }, 1500);
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1500);
       } else {
         setMessage(data.message);
         setSucess(false);
