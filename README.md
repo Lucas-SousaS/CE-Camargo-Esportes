@@ -41,7 +41,13 @@ Seja você também um autor no Camargo Esportes! Poste notícias, compartilhe su
     npm install
     ```
 
-3. Acesse o seguinte endereço no seu navegador:
+3. Execute o comando para iniciar o site:
+
+    ```bash
+    npm run dev
+    ```
+
+4. Acesse o seguinte endereço no seu navegador:
 
     [http://localhost:5173](http://localhost:5173)
 
