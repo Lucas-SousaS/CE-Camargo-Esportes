@@ -27,6 +27,7 @@ function Login() {
     } else {
       setError("");
     }
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -44,16 +45,19 @@ function Login() {
         setErrorEmail;
         setSucess(true);
         setMessage(`Bem-vindo, ${data.user.nome}!`);
+        setLoading(false);
         setTimeout(() => {
           window.location.href = "/";
-        }, 1500); 
+        }, 1500);
       } else {
         setMessage(data.message);
         setSucess(false);
+        setLoading(false);
       }
     } catch (error) {
       setMessage("Erro ao logar. Tente novamente.");
       setSucess(false);
+      setLoading(false);
     }
   };
 
@@ -74,6 +78,8 @@ function Login() {
     checkSession();
   }, []);
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <>
       <SecHeader />
@@ -88,7 +94,9 @@ function Login() {
             {message ? (
               <div className="w-full mb-4">
                 <div
-                  className={`w-full flex justify-center p-2 items-center rounded ${sucess ? "bg-green-200" : "bg-red-200"}`}
+                  className={`w-full flex justify-center p-2 items-center rounded ${
+                    sucess ? "bg-green-200" : "bg-red-200"
+                  }`}
                 >
                   <h2
                     className={`${sucess ? "text-green-700" : "text-red-700"}`}
@@ -136,12 +144,21 @@ function Login() {
               {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
             </div>
 
-            <button
-              className="w-full bg-[#06aa48] text-white p-2 rounded mt-2 hover:brightness-110 transition-all"
-              onClick={handleLogin}
-            >
-              Entrar{" "}
-            </button>
+            {loading ? (
+              <button className="w-full bg-[#06aa48a4] text-white p-2 rounded mt-2 hover:brightness-110 transition-all flex items-center justify-center">
+                <div
+                  className="w-6 h-6 border-4 border-white border-solid rounded-full animate-spin border-t-transparent"
+                  role="status"
+                ></div>
+              </button>
+            ) : (
+              <button
+                className="w-full bg-[#06aa48] text-white p-2 rounded mt-2 hover:brightness-110 transition-all"
+                onClick={handleLogin}
+              >
+                Entrar
+              </button>
+            )}
           </div>
 
           <div className="w-full flex flex-col items-center gap-6">

@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import SecHeader from "../../components/SecHeader/SecHeader";
 import { Link } from "react-router-dom";
 import { FaCarCrash, FaEdit, FaTrash } from "react-icons/fa";
+import bg_404 from "../../assets/bg-nologin.svg";
 import Footer from "../../components/Footer/Footer";
+import NotFound from "../../components/boxPageNotFound/NotFound";
 function MyNews() {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState([]);
@@ -50,9 +52,10 @@ function MyNews() {
           );
           const data = await response.json();
           console.log(data);
-
+          setLoading(false);
           setNoticia(data);
         } catch (error) {
+          setLoading(false);
           console.error("Erro ao enviar dados:", error);
         }
       }
@@ -98,13 +101,15 @@ function MyNews() {
     }
   };
 
+  const [loading, setLoading] = useState(true);
+
   return (
     <>
       <SecHeader Titulo={"Minhas notícias"} />
       <div className="w-screen min-h-screen flex flex-col gap-16 justify-center items-center">
         {isLogged ? (
           <>
-            <div className="p-10 flex flex-col gap-10 mt-10 items-center justify-start min-h-screen">
+            <div className="p-10 flex flex-col gap-10 mt-10 items-center justify-center  min-h-screen">
               {message ? (
                 <div className="w-full mb-4">
                   <div
@@ -122,7 +127,15 @@ function MyNews() {
                   </div>
                 </div>
               ) : null}
-              {noticia.length > 0 ? (
+
+              {loading ? (
+                <div className="w-screen min-h-screen flex flex-col gap-16 justify-center items-center">
+                  <div
+                    className="w-24 h-24 border-4 border-[#06aa48] border-solid rounded-full animate-spin border-t-transparent"
+                    role="status"
+                  ></div>
+                </div>
+              ) : noticia.length > 0 ? (
                 <>
                   {noticia.map((item) => (
                     <div
@@ -179,21 +192,17 @@ function MyNews() {
                   </div>
                 </>
               ) : (
-                <div className="flex flex-col items-center justify-center mt-[-20px]  bg-gray-100">
-                  <div className="flex flex-col items-center gap-2 p-4 rounded-lg shadow-xl bg-white max-w-lg">
-                    <img
-                      src="https://via.placeholder.com/300x200?text=No+News"
-                      alt="Nenhuma notícia disponível"
-                      className="w-full h-auto rounded mb-4"
-                    />
-                    <p className="text-gray-700 font-medium text-xl mb-2">
-                      Não há notícias para mostrar.
-                    </p>
+                <div className="w-screen min-h-[90vh] flex flex-col items-center justify-center mt-4 mb-8">
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <img src={bg_404} alt="imagem 404" className="h-[150px]" />
+                    <h1 className="text-lg font-medium text-gray-600">
+                      Parece que você não publicou nenhuma notícia
+                    </h1>
                     <Link
-                      to="/publicacaoNoticia"
-                      className="px-4 py-2 bg-[#06aa48] text-white rounded hover:bg-[#058a3a] hover:shadow-2xl transition-all"
+                      to={"/publicacaoNoticia"}
+                      className="py-2 bg-[#06aa48] text-white font-medium rounded px-6 hover:brightness-110 transition-all"
                     >
-                      Publique sua Notícia!
+                      Publique
                     </Link>
                   </div>
                 </div>
@@ -201,9 +210,7 @@ function MyNews() {
             </div>
           </>
         ) : (
-          <div>
-            <h1>Faça Login</h1>
-          </div>
+          <NotFound />
         )}
       </div>
       <Footer />

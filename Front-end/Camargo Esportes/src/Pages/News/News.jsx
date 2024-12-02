@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer/Footer";
+import SecHeader from "../../components/SecHeader/SecHeader";
 
 function News() {
   const { id } = useParams();
@@ -41,26 +42,39 @@ function News() {
       });
   }, []);
 
-  const [isLogged, setIsLogged] = useState(false)
+  const [isLogged, setIsLogged] = useState(false);
   useEffect(() => {
     const checkSession = async () => {
-      const response = await fetch('http://localhost/CE-Camargo-Esportes/Back-end/check-session.php', {
-        credentials: 'include',
-      });
+      const response = await fetch(
+        "http://localhost/CE-Camargo-Esportes/Back-end/check-session.php",
+        {
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       if (data.loggedIn) {
-        setIsLogged(true)
+        setIsLogged(true);
       } else {
-        setIsLogged(false)
+        setIsLogged(false);
       }
     };
 
     checkSession();
   }, []);
 
-
   if (loading) {
-    return <div>Carregando...</div>;
+    return (
+      <>
+      <Header cadastro={isLogged} />
+        <div className="min-h-screen w-screen flex items-center justify-center py-20">
+          <div
+            className="w-24 h-24 border-4 border-[#06aa48] border-solid rounded-full animate-spin border-t-transparent"
+            role="status"
+          ></div>
+        </div>
+        <Footer />
+      </>
+    );
   }
 
   if (error) {

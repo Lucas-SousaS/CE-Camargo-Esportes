@@ -3,6 +3,7 @@ import Input from "../../components/Input/Input";
 import { Link } from "react-router-dom";
 import SecHeader from "../../components/SecHeader/SecHeader";
 import Footer from "../../components/Footer/Footer";
+import NotFound from "../../components/boxPageNotFound/NotFound";
 
 function RegisterNews() {
   const [titulo, setTitulo] = useState("");
@@ -266,7 +267,7 @@ function RegisterNews() {
                   Matéria Completa:
                 </label>
                 <textarea
-                  className="border-2 border-gray-300 rounded focus:border-[#06aa48]"
+                  className="border-2 border-gray-300 rounded focus:border-[rgb(6,170,72)]"
                   id="materiaCompleta"
                   rows="4"
                   cols="50"
@@ -311,15 +312,9 @@ function RegisterNews() {
         </>
       ) : (
         <>
-          <SecHeader Titulo={"Publicar Notícia"} />
+          <SecHeader />
+          <NotFound />
 
-          <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-4 mb-8">
-            <div className="flex flex-col items-center justify-center gap-4">
-              <h1>Opps</h1>
-              <p>Parece que você não fez login ainda!</p>
-              <Link to={"/login"}>Fazer Login</Link>
-            </div>
-          </div>
           <Footer />
         </>
       )}
