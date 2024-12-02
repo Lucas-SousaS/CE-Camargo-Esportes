@@ -4,7 +4,7 @@ let user = null;
 let isLogged = false;
 
   const checkSession = async () => {
-    const response = await fetch('http://localhost/CE-Camargo-Esportes/Back-end/check-session.php', {
+    const response = await fetch('https://ce-camargo-esportes-back-end.vercel.app/api/check-session.php', {
       credentials: 'include',
     });
     const data = await response.json();

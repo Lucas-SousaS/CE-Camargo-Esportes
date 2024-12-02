@@ -16,8 +16,7 @@ const SearchComponent = () => {
     setLoading(true);
 
     try {
-      // Substitua pelo seu endpoint de pesquisa
-      const response = await fetch(`https://api.exemplo.com/search?q=${searchTerm}`);
+      const response = await fetch(`http://localhost/CE-Camargo-Esportes/Back-end/search?q=${searchTerm}`);
       const data = await response.json();
       setResults(data.results || []);
     } catch {
@@ -29,7 +28,7 @@ const SearchComponent = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-10 p-4">
-      {/* Input de Pesquisa */}
+
       <div className="flex items-center gap-3 mb-6">
         <input
           type="text"
@@ -51,14 +50,12 @@ const SearchComponent = () => {
         </button>
       </div>
 
-      {/* Mensagens de Erro */}
       {error && (
         <div className="p-3 mb-4 text-red-700 bg-red-100 border border-red-300 rounded-lg">
           {error}
         </div>
       )}
 
-      {/* Resultados da Pesquisa */}
       <div className="space-y-4">
         {loading ? (
           <p className="text-center text-gray-500">Carregando resultados...</p>

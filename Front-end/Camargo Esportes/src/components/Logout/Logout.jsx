@@ -3,7 +3,7 @@ import SecHeader from "../SecHeader/SecHeader";
 function Logout() {
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost/seu-backend/logout.php", {
+      const response = await fetch("http://localhost/CE-Camargo-Esportes/Back-end/logout.php", {
         method: "POST",
         credentials: "include",
       });

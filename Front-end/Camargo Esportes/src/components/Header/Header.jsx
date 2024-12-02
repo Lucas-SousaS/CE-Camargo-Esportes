@@ -31,6 +31,7 @@ function Header({ categoria = "Camargo Esporte", cadastro }) {
 
       const response = await fetch(
         "http://localhost/CE-Camargo-Esportes/Back-end/search_news.php",
+
         {
           method: "POST",
           headers: {
