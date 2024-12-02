@@ -24,3 +24,25 @@ Seja você também um autor no Camargo Esportes! Poste notícias, compartilhe su
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Lucas-SousaS/CE-Camargo-Esportes.git
+2. **Startar o XAMPP**  
+   Abra o XAMPP no seu computador.  
+   Inicie os serviços do Apache e MySQL para garantir que o servidor PHP e o banco de dados estejam funcionando corretamente.
+
+## Instalar as Dependências do Node
+1. Navegue até a pasta do projeto:
+
+    ```bash
+    cd CE-Camargo-Esportes
+    ```
+
+2. Instale as dependências do Node.js executando o comando:
+
+    ```bash
+    npm install
+    ```
+
+3. Acesse o seguinte endereço no seu navegador:
+
+    [http://localhost:5173](http://localhost:5173)
+
+Agora você poderá interagir com a plataforma Camargo Esportes e ver o conteúdo disponível.
