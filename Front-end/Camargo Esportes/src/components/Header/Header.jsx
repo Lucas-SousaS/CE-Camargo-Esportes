@@ -1,43 +1,34 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaSearch, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import SideMenu from "../SideMenu/SideMenu";
-import SideMenuRight from "../sideMenuRight/sideMenuRight";
-import "./Style.css";
+import SideMenuRight from "../SideMenuRight/SideMenuRight";
+import { FaCalculator, FaX } from "react-icons/fa6";
 
-function Header({ categoria, cadastro }) {
+function Header({ categoria = "Camargo Esporte", cadastro }) {
   const [link, setLink] = useState("/");
   const [noticia, setNoticia] = useState([]);
+  const [menuStyle, setMenuStyle] = useState("left-[-100%]");
+  const [sideMenuRightStyle, setSideMenuRightStyle] = useState("right-[-100%]");
+  const [pesquisa, setPesquisa] = useState("");
+  const [showBoxFlutuante, setShowBoxFlutuante] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  if (categoria == null || categoria == undefined) {
-    categoria = "Camargo Esporte";
-  } else {
-    setLink("/");
-  }
+  const toggleMenu = () =>
+    setMenuStyle((prev) =>
+      prev === "left-[-100%]" ? "left-0" : "left-[-100%]"
+    );
 
-  const [style, setStyle] = useState("left-[-100%]");
-  function Esconder() {
-    if (style == "left-[-100%]") {
-      setStyle("left-0");
-    } else {
-      setStyle("left-[-100%]");
-    }
-  }
-
-  const [estilo, setEstilo] = useState("right-[-100%]");
-  function aparecer() {
-    if (estilo == "right-[-100%]") {
-      setEstilo("right-0");
-    } else {
-      setEstilo("right-[-100%]");
-    }
-  }
-
-
-  const [pesquisa, setPesquisa] = useState("")
+  const toggleSideMenuRight = () =>
+    setSideMenuRightStyle((prev) =>
+      prev === "right-[-100%]" ? "right-0" : "right-[-100%]"
+    );
 
   const handleSearch = async () => {
+    setLoading(true);
     try {
+      setShowBoxFlutuante(true);
+
       const response = await fetch(
         "http://localhost/CE-Camargo-Esportes/Back-end/search_news.php",
         {
@@ -45,93 +36,119 @@ function Header({ categoria, cadastro }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            pesquisa
-          })
+          body: JSON.stringify({ pesquisa }),
         }
       );
+
       const data = await response.json();
-      setNoticia(data)  
+
+      setLoading(false);
+      setNoticia(data);
     } catch (error) {
-      console.log(error)
+      console.error("Erro ao buscar notícias:", error);
     }
   };
+
   return (
     <>
-      <SideMenu hidden={style} func={Esconder} />
-      <header className="bg-[#06aa48] w-screen py-5 relative h-[74px]">
-        <div className="flex items-center justify-center gap-4 absolute left-[10%] top-[50%] translate-y-[-50%]">
-          <button
-            onClick={() => Esconder()}
-            className="flex items-center gap-2"
-          >
-            <div className="flex flex-col  gap-1">
-              <div className="w-5 h-[3px] rounded-md bg-white"></div>
-              <div className="w-5 h-[3px] rounded-md bg-white"></div>
-              <div className="w-5 h-[3px] rounded-md bg-white"></div>
+      <SideMenu hidden={menuStyle} func={toggleMenu} />
+      <header className="bg-[#06aa48] w-screen py-5 h-[74px] relative">
+        <div className="flex items-center justify-between px-20 absolute w-full">
+          <button onClick={toggleMenu} className="flex items-center gap-2">
+            <div className="flex flex-col gap-1">
+              {[...Array(3)].map((_, index) => (
+                <div
+                  key={index}
+                  className="w-5 h-[3px] bg-white rounded-md"
+                ></div>
+              ))}
             </div>
-            <h3 className="text-lg font-semibold text-white flex items-center mt-[2px]">
-              MENU
-            </h3>
+            <h3 className="text-lg font-semibold text-white">MENU</h3>
           </button>
-        </div>
 
-        <div className="absolute flex items-center justify-center left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] ">
-          <Link to={link} className="flex items-center justify-center">
-            <h1 className="font-bold text-2xl text-white">{categoria}</h1>
-          </Link>
-        </div>
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Link to={link}>
+              <h1 className="font-bold text-2xl text-white">{categoria}</h1>
+            </Link>
+          </div>
 
-        <div className="flex items-center justify-center gap-4 absolute right-[10%] top-[50%] translate-y-[-50%]">
-          <div className="mt-64 ">
-            <div className="flex items-center bg-[#058a3a] gap-2 p-1 px-2 rounded box-search ">
-          
-              <button onClick={() => handleSearch()}>
-                <FaSearch className="text-white icon-search" />
+          <div className="flex items-center gap-4">
+            <div className="flex items-center bg-[#058a3a] p-[6px] px-2 rounded gap-2">
+              <button onClick={handleSearch}>
+                <FaSearch className="text-white" />
               </button>
               <input
                 type="text"
-                className={`rounded px-4 font-bold outline-none placeholder:text-white ${pesquisa ? "text-black bg-white" : null}`}
+                className={`rounded px-4 w-36 text-gray-700 outline-none ${
+                  pesquisa ? "text-black bg-white" : "placeholder:text-white"
+                }`}
                 placeholder="Buscar"
+                value={pesquisa}
                 onChange={(e) => setPesquisa(e.target.value)}
               />
             </div>
-            <div
-              id="Box-flutuante"
-              className=" h-60 rounded shadow-2xl  bg-white shadow-slate-750 border-2 p-4 mt-8 z-20 pointer-events-none"
-            >
-              {noticia ? noticia.map((item) => (
-                <div key={item.id} className="w-30">
-                  <h1>{item.titulo}</h1>
-                </div>
-              )): null}
-            </div>
-          </div>
-          <div className="flex gap-1 items-center">
-            {!cadastro ? (
-              <>
-                <Link to={"/login"} className="flex gap-1 items-center">
-                  <h1 className="text-white font-semibold">Entre</h1>
-                </Link>
-                <span className="text-white">|</span>
-                <Link to={"/cadastro"} className="flex gap-1 items-center">
-                  <h1 className="text-white font-semibold ">Fazer cadastro</h1>
-                </Link>
-              </>
-            ) : (
-              <>
-                <button
-                  onClick={() => aparecer()}
-                  className="flex items-center gap-2"
-                >
+
+            <div className="flex items-center gap-1">
+              {!cadastro ? (
+                <>
+                  <Link to="/login" className="text-white font-semibold">
+                    Entre
+                  </Link>
+                  <span className="text-white">|</span>
+                  <Link to="/cadastro" className="text-white font-semibold">
+                    Fazer cadastro
+                  </Link>
+                </>
+              ) : (
+                <button onClick={toggleSideMenuRight}>
                   <FaUser className="text-white text-xl" />
                 </button>
-              </>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </header>
-      <SideMenuRight hidden={estilo} func={aparecer} />
+
+      {showBoxFlutuante && (
+        <div className="w-full flex flex-col justify-center mt-2 mb-4 items-center relative">
+          <div className="bg-white h-60 border-2 w-[70vw] flex flex-col  shadow-2xl rounded overflow-y-auto z-20 relative">
+            <div className="flex justify-between">
+              <div></div>
+              <h1 className="text-center mt-2 mb-2 font-medium text-lg ">
+                Resultado da Pesquisa
+              </h1>
+              <button className="mr-5" onClick={() => setShowBoxFlutuante(false)}><FaX /></button>
+            </div>
+            {loading ? (
+              <div className="w-full h-full flex justify-center items-center">
+                <div
+                  className="w-12 h-12 border-4 border-[#06aa48] border-solid rounded-full animate-spin border-t-transparent"
+                  role="status"
+                ></div>
+              </div>
+            ) : noticia.length > 0 ? (
+              noticia.map((item) => (
+                <div key={item.id} className="p-2 border-t border-b">
+                  <Link to={`/news/${item.id}`} className="">
+                    <h1 className="text-[#06aa48] font-medium ">
+                      {item.titulo}
+                    </h1>
+                    <h1 className="text-gray-500 font-light w-full truncate">
+                      {item.conteudo}
+                    </h1>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <p className="text-center text-gray-500 p-2">
+                Nenhuma notícia encontrada
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      <SideMenuRight hidden={sideMenuRightStyle} func={toggleSideMenuRight} />
     </>
   );
 }
