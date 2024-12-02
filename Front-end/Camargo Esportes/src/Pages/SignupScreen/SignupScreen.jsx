@@ -16,12 +16,92 @@ function SignupScreen() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [statusShow, setStatusShow] = useState("");
-  const [statusCadastro, setStatusCadastro] = useState("")
+  const [statusCadastro, setStatusCadastro] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [sucess, setSucess] = useState();
+
+
+  const [errorNome, setErrorNome] = useState("");
+  const [errorDataNascimento, setErrorDataNascimento] = useState("");
+  const [errorGenero, setErrorGenero] = useState("");
+  const [errorCidade, setErrorCidade] = useState("");
+  const [errorEstado, setErrorEstado] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  const [errorSenha, setErrorSenha] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
+    if (!nome) {
+      setErrorNome("Por favor, insira o seu nome.");
+      
+      return;
+    } else {
+      setErrorNome("");
+    }
+
+
+    if (!email) {
+      setErrorEmail("Por favor, insira o seu email.");
+      
+      return;
+    } else {
+      setErrorEmail("");
+    }
+    if (!senha) {
+      setErrorSenha("Por favor, insira a sua senha.");
+      
+      return;
+    } else {
+      setErrorSenha("");
+
+    }
+
+    
+    if (!genero) {
+      setErrorGenero("Por favor, insira o seu gênero.");
+      
+      return;
+    } else {
+      setErrorGenero("");
+    }
+    if (!dataNascimento) {
+      setErrorDataNascimento("Por favor, insira a sua data de nascimento.");
+
+      return;
+    } else {
+      setErrorDataNascimento("");
+
+    }
+    
+    if (!cidade) {
+      setErrorCidade("Por favor, insira a sua cidade.");
+      return;
+    } else {
+      setErrorCidade("");
+
+    }
+
+    if (!estado) {
+      setErrorEstado("Por favor, insira o seu estado.");
+
+      return;
+    } else {
+      setErrorEstado("");
+
+    }
+
+
+
+
+
+
     try {
+
+          setLoading(true);
+
       const response = await fetch(
         "http://localhost/CE-Camargo-Esportes/Back-end/post_data.php",
         {
@@ -29,7 +109,7 @@ function SignupScreen() {
           headers: {
             "Content-Type": "application/json",
           },
-          
+
           body: JSON.stringify({
             nome,
             email,
@@ -49,29 +129,34 @@ function SignupScreen() {
       setEmail("");
       setSenha("");
       const data = await response.json();
-      console.log("Resposta do servidor:", data);
-      if (data.status == "success"){
-        console.log("você se cadastrou com sucesso!!!!")
-        setStatusShow("")
-        setStatusShow("flex")
-        setStatusCadastro("sucess")
+      if (data.status == "success") {
+
+        setStatusCadastro("sucess");
+        setMessage(data.message);
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1500);
+        setLoading(false);
+        setSucess(true);
       } else {
-        console.log("tá tudo errado")
-        setStatusCadastro("error")
-        setStatusShow("")
-        setStatusShow("flex")
+        console.log("tá tudo errado");
+        setStatusCadastro("error");
+        setMessage(data.message);
+
+        setLoading(false);
+        setSucess(false);
       }
     } catch (error) {
-      console.error("Erro ao enviar dados:", error);
+      setLoading(false);
+      setSucess(false);
+      setMessage(error)
     }
   };
 
   return (
     <>
-    
       <SecHeader />
 
-      
       <CardStatus show={statusShow} status={statusCadastro} />
       <div className="w-screen min-h-screen flex flex-col items-center justify-center mt-10 mb-20">
         <form
@@ -90,6 +175,9 @@ function SignupScreen() {
               func={setNome}
               value={nome}
             />
+            {errorNome && (
+                  <p className="text-red-500 text-sm mt-1">{errorNome}</p>
+                )}
           </div>
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
@@ -100,6 +188,9 @@ function SignupScreen() {
               func={setEmail}
               value={email}
             />
+            {errorEmail && (
+                  <p className="text-red-500 text-sm mt-1">{errorEmail}</p>
+                )}
           </div>
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
@@ -110,6 +201,9 @@ function SignupScreen() {
               func={setSenha}
               value={senha}
             />
+            {errorSenha && (
+                  <p className="text-red-500 text-sm mt-1">{errorSenha}</p>
+                )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -129,6 +223,9 @@ function SignupScreen() {
               <option value="feminino">Feminino</option>
               <option value="outro">Outro</option>
             </datalist>
+            {errorGenero && (
+                  <p className="text-red-500 text-sm mt-1">{errorGenero}</p>
+                )}
           </div>
 
           <div className="flex flex-col gap-1 w-[100%]">
@@ -140,6 +237,9 @@ function SignupScreen() {
               func={setDataNas}
               value={dataNascimento}
             />
+            {errorDataNascimento && (
+                  <p className="text-red-500 text-sm mt-1">{errorDataNascimento}</p>
+                )}
           </div>
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
@@ -150,6 +250,9 @@ function SignupScreen() {
               func={setCidade}
               value={cidade}
             />
+            {errorCidade && (
+                  <p className="text-red-500 text-sm mt-1">{errorCidade}</p>
+                )}
           </div>
           <div className="flex flex-col gap-1 w-[100%]">
             <Input
@@ -160,13 +263,38 @@ function SignupScreen() {
               func={setEstado}
               value={estado}
             />
+            {errorEstado && (
+                  <p className="text-red-500 text-sm mt-1">{errorEstado}</p>
+                )}
           </div>
-          <button
-            type="submit"
-            className="bg-[#06aa48] p-1 py-2 w-[100%] rounded-md text-white hover:shadow-xl transition-all hover:brightness-110"
-          >
-            Cadastrar
-          </button>
+          {message ? (
+            <div className="w-full mb-4">
+              <div
+                className={`w-full flex justify-center p-2 items-center rounded ${
+                  sucess ? "bg-green-200" : "bg-red-200"
+                }`}
+              >
+                <h2 className={`${sucess ? "text-green-700" : "text-red-700"}`}>
+                  {message}
+                </h2>
+              </div>
+            </div>
+          ) : null}
+          {loading ? (
+            <button className="w-full bg-[#06aa48a4] text-white p-2 rounded mt-2 hover:brightness-110 transition-all flex items-center justify-center">
+              <div
+                className="w-6 h-6 border-4 border-white border-solid rounded-full animate-spin border-t-transparent"
+                role="status"
+              ></div>
+            </button>
+          ) : (
+            <button
+              className="w-full bg-[#06aa48] text-white p-2 rounded mt-2 hover:brightness-110 transition-all"
+              onClick={handleSubmit}
+            >
+              Cadastrar
+            </button>
+          )}
         </form>
       </div>
 

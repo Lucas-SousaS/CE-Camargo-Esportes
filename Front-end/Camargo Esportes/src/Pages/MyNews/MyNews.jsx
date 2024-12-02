@@ -39,7 +39,7 @@ function MyNews() {
       if (idUser) {
         try {
           const response = await fetch(
-            "https://ce-camargo-esportes-back-end.vercel.app/api/get_news_user.php",
+            "http://localhost/CE-Camargo-Esportes/Back-end/get_news_user.php",
             {
               method: "POST",
               headers: {
@@ -69,7 +69,7 @@ function MyNews() {
       if (confirm("Tem certeza de que deseja excluir esta notícia?")) {
         try {
           const response = await fetch(
-            "https://ce-camargo-esportes-back-end.vercel.app/api/delete_news.php",
+            "http://localhost/CE-Camargo-Esportes/Back-end/delete_news.php",
             {
               method: "POST",
               headers: {

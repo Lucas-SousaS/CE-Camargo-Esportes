@@ -24,6 +24,8 @@ function RegisterNews() {
   const [errorMateriaCompleta, setErrorMateriaCompleta] = useState("");
   const [message, setMessage] = useState("");
   const [sucess, setSucess] = useState();
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     setImagens(
@@ -77,6 +79,7 @@ function RegisterNews() {
     }
 
     try {
+      setLoading(true)
       const response = await fetch(
         "http://localhost/CE-Camargo-Esportes/Back-end/post_news.php",
         {
@@ -110,6 +113,10 @@ function RegisterNews() {
       if (data.status === "success") {
         setSucess(true);
         setMessage(data.message);
+        setLoading(false)
+        setTimeout(() => {
+          window.location.href = "/mynews";
+        }, 2000);
         setTimeout(() => {
           setMessage();
         }, 2000);
@@ -119,9 +126,11 @@ function RegisterNews() {
           window.location.href = "/publicacaoNoticia";
         }, 2000);
         setMessage(data.message);
+        setLoading(false)
       }
     } catch (error) {
       setSucess(false);
+      setLoading(false)
       setTimeout(() => {
         window.location.href = "/publicacaoNoticia";
       }, 2000);
@@ -142,7 +151,6 @@ function RegisterNews() {
       if (data.loggedIn) {
         setIsLogged(true);
         setUser(data.user);
-        console.log(data.user);
         setAutor_id(Number(data.user.id));
         setAutor(data.user.nome);
       } else {
@@ -300,12 +308,19 @@ function RegisterNews() {
                 </div>
               ) : null}
 
-              <button
-                type="submit"
-                className="bg-[#06aa48] p-1 py-2 w-[100%] rounded-md text-white hover:shadow-xl transition-all hover:brightness-110"
-              >
-                Publicar Notícia
-              </button>
+              {loading ? (
+                <button className="w-full bg-[#06aa48a4] text-white p-2 rounded mt-2 hover:brightness-110 transition-all flex items-center justify-center">
+                  <div
+                    className="w-6 h-6 border-4 border-white border-solid rounded-full animate-spin border-t-transparent"
+                    role="status"
+                  ></div>
+                </button>
+              ) : (
+                <button
+                  className="w-full bg-[#06aa48] text-white p-2 rounded mt-2 hover:brightness-110 transition-all"
+                  onClick={handleSubmit}
+                >Publicar Notícia</button>
+              )}
             </form>
           </div>
           <Footer />

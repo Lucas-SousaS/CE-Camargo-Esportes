@@ -3,6 +3,7 @@ $dados = json_decode(file_get_contents("php://input"), true);
 include("database.php");
 header("Access-Control-Allow-Origin: *");
 
+header('Access-Control-Allow-Credentials: true');
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
 
 header("Access-Control-Allow-Headers: Content-Type, Authorization");

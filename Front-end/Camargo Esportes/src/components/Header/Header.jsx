@@ -101,7 +101,7 @@ function Header({ categoria = "Camargo Esporte", cadastro }) {
                   </Link>
                 </>
               ) : (
-                <button onClick={toggleSideMenuRight}>
+                <button onClick={toggleMenu}>
                   <FaUser className="text-white text-xl" />
                 </button>
               )}

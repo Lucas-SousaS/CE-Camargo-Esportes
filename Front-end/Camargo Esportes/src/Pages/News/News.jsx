@@ -29,7 +29,8 @@ function News() {
           const imagesNew = JSON.parse(data.imagens);
           setImages(imagesNew);
           const string = data.materiaCompleta;
-          const paragraphs = string.split(/(?<=\w[.!?])\s+/);
+          const paragraphs = string.split('\n').map(paragrafo => paragrafo.trim()).filter(paragrafo => paragrafo);
+
           setMateriaF(paragraphs);
           setNoticia(data);
         }
@@ -103,12 +104,12 @@ function News() {
 
             <div className="flex flex-col gap-2 mt-5">
               {materiaF.map((item, index) => (
-                <div key={index} className="flex flex-col gap-5">
+                <div key={index} className="flex flex-col gap-10">
                   <h1 className="font-light text-xl text-[#333333]">{item}</h1>
                   <div className="flex w-[100%] items-center justify-center">
                     {index == 3 && (
                       <img
-                        className="max-h-[600px] max-w-[430px]"
+                        className="max-h-[600px] max-w-[430px] mb-4"
                         src={`${images.imagem_adicional_1}`}
                         alt={`Imagem ${index + 1}`}
                       />
