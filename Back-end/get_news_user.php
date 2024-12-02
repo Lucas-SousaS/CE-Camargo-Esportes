@@ -1,24 +1,11 @@
 <?php
 $dados = json_decode(file_get_contents("php://input"), true);
 include("database.php");
-$allowed_origins = [
-    'http://localhost:3000', 
-    'http://localhost:5173',
-    'http://127.0.0.1:5500', 
-];
+header("Access-Control-Allow-Origin: *");
 
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($origin, $allowed_origins)) {
-    header("Access-Control-Allow-Origin: $origin");
-} else {
-    header('HTTP/1.1 403 Forbidden');
-    echo json_encode(['success' => false, 'message' => 'Origem não permitida.']);
-    exit();
-}
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE, PUT");
 
-header('Access-Control-Allow-Credentials: true');
-header('Access-Control-Allow-Methods: POST, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 $id = (int) $dados["idUser"];
 
