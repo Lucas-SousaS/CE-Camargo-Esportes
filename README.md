@@ -16,7 +16,7 @@ Seja você também um autor no Camargo Esportes! Poste notícias, compartilhe su
 
 - **Frontend:** React, Tailwind css
 - **Backend:** PHP
-- **Banco de Dados:** MySql
+- **Banco de Dados:** MySql e Railway
 - **Outras ferramentas:** Fetch para requisições API
 
 ## Instalação
