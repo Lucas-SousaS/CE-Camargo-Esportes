@@ -12,14 +12,15 @@ Camargo Esportes é uma plataforma colaborativa dedicada ao mundo dos esportes. 
 
 Seja você também um autor no Camargo Esportes! Poste notícias, compartilhe sua opinião e ajude a expandir a comunidade.
 
-## Integrantes do Grupo
+# Integrantes do Grupo
 
-# 1. **Lucas Sousa Silva**
-# 2. **Renan Dantas**
-# 3. **Lucas Liggi**
-# 4. **Mateus Augusto**
-# 5. **André Luis**
-# 6. **Vicenzo Gadelha**
+## 1. **Lucas Sousa Silva**
+## 2. **Renan Dantas**
+## 3. **Lucas Liggi**
+## 4. **Mateus Augusto**
+## 5. **André Luis**
+## 6. **Vicenzo Gadelha**
+
 
 
 ## Tecnologias Utilizadas
